@@ -396,7 +396,7 @@ public class AssetBundleEditor : EditorWindow
 
     private void GenerateVersionFile()
     {
-        int resVerCode = 1;
+        int resVerCode = 0;
         string resVerName = "1.0.0";
 
         ReadResVer(ref resVerCode, ref resVerName);
@@ -435,11 +435,6 @@ public class AssetBundleEditor : EditorWindow
             resVerName = sr.ReadLine();
             sr.Close();
             fs.Close();
-        }
-        else
-        {
-            resVerCode = 1;
-            resVerName = "1.0.0";
         }
     }
 
