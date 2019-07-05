@@ -5,6 +5,16 @@ using System.IO;
 
 public class PathTools
 {
+    //需要打包成AssetBundle的文件夹名称
+    public static string ABResFolderName = "ABRes";
+    public static string ABResPath
+    {
+        get
+        {
+            return Application.dataPath + "/" + ABResFolderName;
+        }
+    }
+
     //游戏资源的存放位置，如果路径为空，则从StreamingAssets复制过来
     public static string DataPath
     {
@@ -17,8 +27,7 @@ public class PathTools
             }
             else
             {
-                int index = Application.dataPath.LastIndexOf('/');
-                return Application.dataPath.Substring(0, index) + "/" + appName + "/";
+                return Application.dataPath.Replace("Assets", "") + appName + "/";
             }
         }
     }

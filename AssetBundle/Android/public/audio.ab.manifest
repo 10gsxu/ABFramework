@@ -1,0 +1,57 @@
+ManifestFileVersion: 0
+CRC: 3547798982
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: b150ab1e527eba63ad97efe10a6101b2
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 34806e4ce5d32db0c2c53630c57935e7
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 82
+  Script: {instanceID: 0}
+- Class: 83
+  Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: 11500000, guid: 1669b0a062dc66842ab1bca41a93ebe4, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: d8cd7e379c2ccc242af04f0746d2d65b, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: afc3135f9b5f7b5478b3a0645904bd2c, type: 3}
+- Class: 115
+  Script: {instanceID: 0}
+Assets:
+- Assets/ABRes/Public/Audio/Sound/Tailuozhanshi.mp3
+- Assets/ABRes/Public/Audio/Sound/Switch_role.mp3
+- Assets/ABRes/Public/Audio/Sound/Tailuochuchang.mp3
+- Assets/ABRes/Public/Audio/Sound/Saiwenzhanshi.mp3
+- Assets/ABRes/Public/Audio/AudioContainer.prefab
+- Assets/ABRes/Public/Audio/Sound/Get_Prop.mp3
+- Assets/ABRes/Public/Audio/Sound/Lottery_10.mp3
+- Assets/ABRes/Public/Audio/Music/Music_Game.ogg
+- Assets/ABRes/Public/Audio/Sound/Winmusic.mp3
+- Assets/ABRes/Public/Audio/Sound/Get_Coin.mp3
+- Assets/ABRes/Public/Audio/Sound/Zuofeizhanshi.mp3
+- Assets/ABRes/Public/Audio/Sound/LevelUp_Mecha.mp3
+- Assets/ABRes/Public/Audio/Sound/Aisichuchang.mp3
+- Assets/ABRes/Public/Audio/Sound/Aotefanerchuchang.mp3
+- Assets/ABRes/Public/Audio/Sound/Hit.ogg
+- Assets/ABRes/Public/Audio/Sound/Breakbox.mp3
+- Assets/ABRes/Public/Audio/Sound/Failmusic.mp3
+- Assets/ABRes/Public/Audio/AudioObject.prefab
+- Assets/ABRes/Public/Audio/Sound/Close.mp3
+- Assets/ABRes/Public/Audio/Sound/Get_Award.mp3
+- Assets/ABRes/Public/Audio/Sound/Unlock.mp3
+- Assets/ABRes/Public/Audio/Sound/LevelUp_Role.mp3
+- Assets/ABRes/Public/Audio/Sound/Click.mp3
+- Assets/ABRes/Public/Audio/Sound/Zuofeichuchang.mp3
+- Assets/ABRes/Public/Audio/Sound/Aotefatherzhanshi.mp3
+- Assets/ABRes/Public/Audio/Music/Music_Main.mp3
+- Assets/ABRes/Public/Audio/Sound/Saiwenchuchang.mp3
+- Assets/ABRes/Public/Audio/Sound/Aisizhanshi.mp3
+Dependencies: []

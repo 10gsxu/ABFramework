@@ -1,0 +1,117 @@
+ManifestFileVersion: 0
+CRC: 4283188443
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: edba1b2c8110e3e141721735f3ab44ea
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: ea5a42e0fd8ea905efa7aa926a3b8944
+HashAppended: 0
+ClassTypes:
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 213
+  Script: {instanceID: 0}
+Assets:
+- Assets/ABRes/Public/Car/34.png
+- Assets/ABRes/Public/Car/shadow_44.png
+- Assets/ABRes/Public/Car/shadow_21.png
+- Assets/ABRes/Public/Car/shadow_11.png
+- Assets/ABRes/Public/Car/13.png
+- Assets/ABRes/Public/Car/shadow_29.png
+- Assets/ABRes/Public/Car/shadow_1.png
+- Assets/ABRes/Public/Car/shadow_33.png
+- Assets/ABRes/Public/Car/shadow_36.png
+- Assets/ABRes/Public/Car/shadow_23.png
+- Assets/ABRes/Public/Car/8.png
+- Assets/ABRes/Public/Car/shadow_13.png
+- Assets/ABRes/Public/Car/shadow_31.png
+- Assets/ABRes/Public/Car/28.png
+- Assets/ABRes/Public/Car/37.png
+- Assets/ABRes/Public/Car/36.png
+- Assets/ABRes/Public/Car/shadow_37.png
+- Assets/ABRes/Public/Car/39.png
+- Assets/ABRes/Public/Car/1.png
+- Assets/ABRes/Public/Car/20.png
+- Assets/ABRes/Public/Car/shadow_40.png
+- Assets/ABRes/Public/Car/9.png
+- Assets/ABRes/Public/Car/shadow_17.png
+- Assets/ABRes/Public/Car/shadow_46.png
+- Assets/ABRes/Public/Car/shadow_45.png
+- Assets/ABRes/Public/Car/shadow_22.png
+- Assets/ABRes/Public/Car/14.png
+- Assets/ABRes/Public/Car/shadow_32.png
+- Assets/ABRes/Public/Car/41.png
+- Assets/ABRes/Public/Car/29.png
+- Assets/ABRes/Public/Car/shadow_3.png
+- Assets/ABRes/Public/Car/47.png
+- Assets/ABRes/Public/Car/23.png
+- Assets/ABRes/Public/Car/shadow_24.png
+- Assets/ABRes/Public/Car/4.png
+- Assets/ABRes/Public/Car/shadow_7.png
+- Assets/ABRes/Public/Car/shadow_5.png
+- Assets/ABRes/Public/Car/43.png
+- Assets/ABRes/Public/Car/shadow_20.png
+- Assets/ABRes/Public/Car/32.png
+- Assets/ABRes/Public/Car/shadow_2.png
+- Assets/ABRes/Public/Car/45.png
+- Assets/ABRes/Public/Car/shadow_18.png
+- Assets/ABRes/Public/Car/shadow_15.png
+- Assets/ABRes/Public/Car/shadow_47.png
+- Assets/ABRes/Public/Car/shadow_50.png
+- Assets/ABRes/Public/Car/44.png
+- Assets/ABRes/Public/Car/shadow_19.png
+- Assets/ABRes/Public/Car/16.png
+- Assets/ABRes/Public/Car/2.png
+- Assets/ABRes/Public/Car/shadow_14.png
+- Assets/ABRes/Public/Car/shadow_41.png
+- Assets/ABRes/Public/Car/shadow_25.png
+- Assets/ABRes/Public/Car/49.png
+- Assets/ABRes/Public/Car/12.png
+- Assets/ABRes/Public/Car/30.png
+- Assets/ABRes/Public/Car/shadow_8.png
+- Assets/ABRes/Public/Car/shadow_16.png
+- Assets/ABRes/Public/Car/shadow_39.png
+- Assets/ABRes/Public/Car/17.png
+- Assets/ABRes/Public/Car/3.png
+- Assets/ABRes/Public/Car/shadow_10.png
+- Assets/ABRes/Public/Car/40.png
+- Assets/ABRes/Public/Car/31.png
+- Assets/ABRes/Public/Car/shadow_30.png
+- Assets/ABRes/Public/Car/48.png
+- Assets/ABRes/Public/Car/11.png
+- Assets/ABRes/Public/Car/35.png
+- Assets/ABRes/Public/Car/19.png
+- Assets/ABRes/Public/Car/24.png
+- Assets/ABRes/Public/Car/38.png
+- Assets/ABRes/Public/Car/shadow_35.png
+- Assets/ABRes/Public/Car/shadow_27.png
+- Assets/ABRes/Public/Car/5.png
+- Assets/ABRes/Public/Car/46.png
+- Assets/ABRes/Public/Car/50.png
+- Assets/ABRes/Public/Car/shadow_12.png
+- Assets/ABRes/Public/Car/shadow_9.png
+- Assets/ABRes/Public/Car/shadow_43.png
+- Assets/ABRes/Public/Car/42.png
+- Assets/ABRes/Public/Car/shadow_26.png
+- Assets/ABRes/Public/Car/27.png
+- Assets/ABRes/Public/Car/shadow_28.png
+- Assets/ABRes/Public/Car/shadow_49.png
+- Assets/ABRes/Public/Car/shadow_4.png
+- Assets/ABRes/Public/Car/6.png
+- Assets/ABRes/Public/Car/shadow_38.png
+- Assets/ABRes/Public/Car/18.png
+- Assets/ABRes/Public/Car/15.png
+- Assets/ABRes/Public/Car/25.png
+- Assets/ABRes/Public/Car/shadow_6.png
+- Assets/ABRes/Public/Car/33.png
+- Assets/ABRes/Public/Car/shadow_34.png
+- Assets/ABRes/Public/Car/shadow_48.png
+- Assets/ABRes/Public/Car/26.png
+- Assets/ABRes/Public/Car/21.png
+- Assets/ABRes/Public/Car/shadow_42.png
+- Assets/ABRes/Public/Car/10.png
+- Assets/ABRes/Public/Car/22.png
+- Assets/ABRes/Public/Car/7.png
+Dependencies: []

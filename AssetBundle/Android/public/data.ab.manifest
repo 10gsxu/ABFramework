@@ -1,0 +1,22 @@
+ManifestFileVersion: 0
+CRC: 2173253471
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 0ffbe682d235903eb2a978ab078dfd78
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 5ad585dd02dfb5016c0dad519eab8f49
+HashAppended: 0
+ClassTypes:
+- Class: 49
+  Script: {instanceID: 0}
+Assets:
+- Assets/ABRes/Public/Data/Csv/UserLevelData.csv
+- Assets/ABRes/Public/Data/Json/PlayerData.txt
+- Assets/ABRes/Public/Data/Csv/CarData.csv
+- Assets/ABRes/Public/Data/Json/PositionData.txt
+- Assets/ABRes/Public/Data/Csv/LanguageData.csv
+- Assets/ABRes/Public/Data/Csv/AchievementData.csv
+- Assets/ABRes/Public/Data/Json/SettingData.txt
+Dependencies: []

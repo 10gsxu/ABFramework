@@ -1,0 +1,59 @@
+ManifestFileVersion: 0
+CRC: 3124493264
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: eb6ca3092b76b0b502317203b8106086
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 74680965b4140bfca9e7dcbe7df2b5f8
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: 1392445389, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+- Class: 114
+  Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+- Class: 114
+  Script: {fileID: -1200242548, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+- Class: 114
+  Script: {fileID: 1367256648, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+- Class: 114
+  Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 29fce905e07964a578d6d767d29f3df9, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 7699ddd91cb044c178181845650af409, type: 3}
+- Class: 115
+  Script: {instanceID: 0}
+- Class: 128
+  Script: {instanceID: 0}
+- Class: 213
+  Script: {instanceID: 0}
+- Class: 222
+  Script: {instanceID: 0}
+- Class: 224
+  Script: {instanceID: 0}
+Assets:
+- Assets/ABRes/Public/UIPanel/WinPanel.prefab
+- Assets/ABRes/Public/UIPanel/CarItem.prefab
+- Assets/ABRes/Public/UIPanel/LosePanel.prefab
+- Assets/ABRes/Public/UIPanel/GamePanel.prefab
+- Assets/ABRes/Public/UIPanel/MainPanel.prefab
+- Assets/ABRes/Public/UIPanel/SeatItem.prefab
+- Assets/ABRes/Public/UIPanel/RankPanel.prefab
+- Assets/ABRes/Public/UIPanel/ShopPanel.prefab
+- Assets/ABRes/Public/UIPanel/ShopItem.prefab
+Dependencies:
+- /Users/leohui/Desktop/UnityProject/ABFramework/AssetBundle/Android/public/car.ab
+- /Users/leohui/Desktop/UnityProject/ABFramework/AssetBundle/Android/public/font.ab
+- /Users/leohui/Desktop/UnityProject/ABFramework/AssetBundle/Android/public/sprite.ab
