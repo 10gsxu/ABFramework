@@ -1,0 +1,11 @@
+字段,Title,Desc,IconName,Count
+类型,string,string,string,number
+描述,标题,介绍,图标,数量
+1,成就标题1,艾斯的基地,icon_gaobao,100
+2,成就标题2,杰克的基地,icon_jiansu,100
+3,成就标题3,奥特之父基地,icon_jidian,100
+4,成就标题4,艾斯的基地,icon_jisu,100
+5,成就标题5,杰克的基地,icon_ranshao,100
+6,成就标题6,奥特之父基地,icon_ranshao,100
+7,成就标题7,艾斯的基地,icon_ranshao,100
+8,成就标题8,杰克的基地,icon_ranshao,100

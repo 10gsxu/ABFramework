@@ -1,0 +1,6 @@
+{
+	"settingInfo": {
+		"sound": 1,
+		"music": 1
+	}
+}

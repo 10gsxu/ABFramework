@@ -1,0 +1,261 @@
+字段,Chinese,English,Fran?ais,Russian
+类型,string,string,string,string
+描述,中文,英语,法文,俄文
+Shop,商店,Shop,Magasin,Магазин
+DoubleReward,双倍领取,Get x2,Récompense*2,Двойной доход
+Garage,车库,Garage,Garage,Гараж
+Settings,设置,Settings,Réglages,Настройки
+Ads,屏蔽广告,No Ads,Sans pub,Блокировать рекламу
+Rank,排行榜,Ranks,Classement,Рейтинг
+Login,签到,Sign In,Connexion,Отметить
+unLock,未解锁,Locked,Bloquer,Не разблокирован
+DailyAward,每日登录奖励,Daily Reward,Récompense quotidienne,Награда за вход
+BusyBee,勤劳的小蜜蜂,Busy Bee,Abeille assidue,Трудолюбивая пчела
+WatchVideo,观看视频,Watch,Regarder la vidéo,Смотреть видео
+ComposeCars,合成{0}辆车,Merge {0} Cars,Fusionner {0} voitures,Слить пять машин
+WatchADs,观看任意视频广告{0}次,Watch {0} Ads,Regarder {0} vidéos,Смотрите любое видео {0} раза
+ObtainCar,获得过至少{0}辆{1}级车,Get {0} Lv.{1} Car,Obtenir au moins {0} voitures niv.{1},Получили миним. {0}  машин ур. {1} 
+DailyQuest,每日任务,Daily Quests,Quête quotidienne,Ежедневное задание
+Achievements,成就,Achievements,Succès,Успех
+ChallengeLevel,挑战关卡,Challenge,Défi,Уровень вызова
+TotalCoins,累计金币,Total Coins,Pièces d'or,Накопленные монеты
+CoinExchange,货币兑换,Currency Exchange,échange,Обмен валюты
+Exchange,兑换,Exchange,échanger,Обмен
+BuffLevel,增益卡等级 {0},Buff Lv.{0},Carte Buff niv. {0},Уровень бафф -карты {0}
+AllCarAddLevel,所有车辆收益增加{0}%,Earnings increase {0}%,Le revenu de toutes les voitures +{0}%,Увеличение всех доходов от машины{0}%
+DiscountCard,打折卡等级{0},Discount Lv.{0},Carte de réduction niv.{0},Уровень дисконтной карты{0}
+AllReducePrice,所有车辆降价{0}%,Cars' price decrease {0}%,Réduit le prix de toutes les voitures de {0}%,Все машины снижены в цене{0}%
+Car,汽车{0}号,Car {0},Voiture {0},Машина {0}
+Task,任务,Quests,Quête,Задание
+speed1,加速{0}秒,Speed x2 In {0} Seconds,Accélère {0} s.,Ускорить на  {0} сек.
+play,开始游戏,Drift,Commencer,Начать
+OfflineBonus,离线收益,Offline Earnings,Revenu hors ligne,Доход- офлайн
+Stage,关卡,Stage,étape,Уровень
+Coin,金币,Coin,Pièces d'or,Монета
+Lv,级,Lv,Niv.,Ур.
+Earns,金币获得,Earnings,Gagner,Доход
+CarShop,汽车商店,Car Shop,Magasin de voiture,Магазин
+Confirm,确认,Confirm,Confirmer,ОК
+Cancel,取消,Cancel,Annuler,Отмена
+ConfirmExit,确定要退出吗?,Comfire to Exit?,êtes-vous s?r de Quitter ?,Выйдете?
+lockedCar,解锁新车,Unlocked,Débloquer,Разблокировать машину
+Revive,复活,Revive,Réactiver,Воскресать
+Locked,锁定,Locked,Bloqué,Запереть
+Bonus,收益,Earnings,Revenu,Бонус
+Close,点击关闭,Tap to Close,Fermer,Закрыть
+VIP,会员,VIP,VIP,VIP
+diamondShop,钻石商店,Diamond Shop,Magasin de diamants,Алмазный магазин
+Get,获得,Claim,Obtenir,Получить
+TimeLimit,限时时间,Time Limit,Temps limité,Ограниченное время
+Discount,降价,OFF,Promotion,Скидки
+Diamonds,钻石,Diamond,Diamants,Алмаз
+StageRanking,关卡排行,Stage Ranking,Classement d'étape,Рейтинг
+UnlockedLevel,已解锁等级,Unlocked Level,Niv. débloqué,Разблокированный уровень
+Car,车辆,Car,Voiture,Машина
+AllBonus,所有车辆收益增加,Increase All Earnings,Augmente le revenu de toutes les voitures,Доход всех машин увеличен
+AllPrice,所有车辆降价,Decrease All Cars' Price,Réduit le prix de toutes les voitures,Цена всех машин уменьшена
+DiscountCard,打折卡,Discount,Carte de réduction,Дисконтная карта
+BonusCard,增益卡,Earning Buff,Carte Buff,Бонусная карта
+Owned,已拥有,Owned,Possession,Есть
+WatchDouble,看视频翻倍,Get x2,Double,Двойной
+OfflineBonusMax,离线收益上限为{0}小时,Offline Earnings,La limite du revenu hors ligne est de x heurs.,Доход- офлайн
+WinPrize,参赛拿奖,Win a Prize,Gagner un prix,Выиграть приз
+BonusUp,收益加速,Earnings Speedup,Accélération de revenu,Ускорение дохода
+GarageFull,车位已满，请先合成或回收车辆,No More Parking Places,Garage occupé,Гараж полон
+RewardClaimed,成功领取奖励,Reward Claimed,Récompense collectée,Награда получена
+ShareDouble,分享翻倍,Get x2,Double,Двойной
+Achievement,成就,Achievements,Succès,Достижение
+buyed,已购买,Purchased,Achats,Куплен
+Other,特权,Privilege,Autres,Другое
+Level,第{0}关,Stage {0},étape {0},Уровень {0}
+ChallengeSucceed,挑战胜利,Win,Victoire,Выиграно
+ChallengeFail,挑战失败,Fail,Défaite,Проиграно
+GetReward,领取奖励,Claim,Collecter,Забрать
+GetFreeCoin,快来领取海量金币吧！,Come and claim your free coins!,Veuillez collecter les pièces d'or gratuites !,Получите бесплатные монеты!
+GetReward1,领取,Claim,Collecter,Забрать
+loginSignIn,登录签到,Sign In,Connexion,Отметить
+dayIndex,第{0}天,Day {0},Jour {0},День {0}
+min,最小,Min,Minimum,Мин
+max,最大,Max,Maximum,Макс
+speed,加速,Speedup,Accélérer,Ускорить
+mianfei,免费,Free,Gratuit,Бесплатно
+select,选择,Select,OK,Выбрать
+backHome,返回主页,Home,Retour à l'accueil,Домой
+selectCar,选择赛车,Select Car,Choisir une voiture,Выбрать машину
+curUse,当前正在使用,Current,En utilisation,Использовано
+composeLocked,完成一次合成后解锁,Unlock after merge once,Sera débloquée après la fusion,Разблокировать после слияния
+levelCar,{0}级车,Level {0},Niv. {0},Уровень {0}
+Lotteryprobability,抽奖概率,Info,Info,Инфо
+signIned,已签到,Claimed,Collecté,Отмечено
+videoReward,视频奖励,Get,Récompense,Награда
+sound,声音,Sound,Son,Звук
+FreeBonus,空投包,Airdrop,Droppage,Аирдроп
+Earnings,5倍金币收益持续60秒,Earnings x5 In 60 Seconds,Revenu x 5 En 60 s.,Доход × 5 за 60 сек.
+FreeCar,4辆赛车,Free Car x4,Voiture gratuite x4,Бесплатная машина × 4
+freecoins,免费金币,Free Coins,Pièces d'or gratuites,Бесплатные монеты
+freeUpgrade,免费升级,Free Upgrade,Amélioration gratuite,Бесплатное улучшение
+upgradeCar,马上升级为高级车,Upgrade your car right now!,Améliorez votre voiture immédiatement !,Улучшите вашу машину!
+Car0001,出租车,Taxi,Taxi,Taxi
+Car0002,高级出租车,Senior Taxi,Super taxi,Senior Taxi
+Car0003,五菱宏光,Van,Van,Van
+Car0004,五菱宏光-S,Van-S,Van-S,Van-S
+Car0005,高尔夫,Golf,Golf,Golf
+Car0006,高尔夫-II,Golf-II,Golf-II,Golf-II
+Car0007,道奇挑战者,Challenger,Challenger,Challenger
+Car0008,道奇挑战者-ll,Challenger-II,Challenger-II,Challenger-II
+Car0009,牧马人,Wrangler,Wrangler,Wrangler
+Car0010,牧马人·改,Wrangler-R,Wrangler-R,Wrangler-R
+Car0011,维多利亚皇冠,Crown,Crown,Crown
+Car0012,SUV-S,SUV-S,SUV-S,SUV-S
+Car0013,SUV-X,SUV-X,SUV-X,SUV-X
+Car0014,货拉拉,Truck,Camion,Truck
+Car0015,大黄蜂,Bumblebee,Bumblebee,Bumblebee
+Car0016,大黄蜂·改,Bumblebee-R,Bumblebee-R,Bumblebee-R
+Car0017,武装车,Armed Vehicle,,
+Car0018,复古吉普,Retro Jeep,Retro Jeep,Retro Jeep
+Car0019,复古吉普·改,Retro Jeep-R,Retro Jeep-R,Retro Jeep-R
+Car0020,擎天柱,Skyreach Pillar,Optimus Prime,Skyreach Pillar
+Car0021,野马,Mustang,Mustang,Mustang
+Car0022,野马-II,Mustang-II,Mustang-II,Mustang-II
+Car0023,水泥车,Cement Truck,Camion de ciment,Cement Truck
+Car0024,复古福特,Ford Vintage,Ford Vintage,Ford Vintage
+Car0025,悍马,Hummer,Hummer,Hummer
+Car0026,悍马-B,Hummer-B,Hummer-B,Hummer-B
+Car0027,救护车,Ambulance,Ambulance,Ambulance
+Car0028,保时捷911,Porsche911,Porsche911,Porsche911
+Car0029,保时捷911-S,Porsche911-S,Porsche911-S,Porsche911-S
+Car0030,奥迪,Audi,,
+Car0031,加长林肯,Stretch Limousine,,
+Car0032,复古道奇,Ford Dodge,Ford Dodge,Ford Dodge
+Car0033,复古道奇-II,Ford Dodge-II,Ford Dodge-II,Ford Dodge-II
+Car0034,压路车,Street Roller,,
+Car0035,道奇ram,Dodge Ram,Dodge Ram,Dodge Ram
+Car0036,道奇ram-II,Dodge Ram-II,Dodge Ram-II,Dodge Ram-II
+Car0037,法拉利458,Ferrari-458,Ferrari-458,Ferrari-458
+Car0038,法拉利-458-II,Ferrari-458-II,Ferrari-458-II,Ferrari-458-II
+Car0039,推土车,Bulldozer,Bulldozer,Bulldozer
+Car0040,校车,School Bus,Bus scolaire,School Bus
+Car0041,高级校车,Senior School Bus,Super Bus scolaire,Senior School Bus
+Car0042,柯尼塞格,Agera,Agera,Agera
+Car0043,柯尼塞格-R,Agera-R,Agera-R,Agera-R
+Car0044,斯泰尔,Dumper,Dumper,Dumper
+Car0045,兰博基尼,Lamborghini,Lamborghini,Lamborghini
+Car0046,兰博基尼·改,Lamborghini-R,Lamborghini-R,Lamborghini-R
+Car0047,消防车,Fire Truck,,
+Car0048,冬克沃特,Donkervoort,Donkervoort,Donkervoort
+Car0049,莱肯超级跑车,Lykan,Lykan,Lykan
+Car0050,莱肯超级跑车-II,Lykan-II,Lykan-II,Lykan-II
+ClickGame,点击进入游戏,Click to Drift,Cliquez pour commencer,"Нажмите, чтобы начать игру"
+TrunRight,按下右转,Hold to Go Right,Appuyez sur l'écran pour Tourner à droite,"Нажмите, чтобы повернуть направо"
+TrunLeft,松手左转,Release to Go Left,Relachez l'écran pour tourner à gauche,"Разожмите, чтобы повернуть налево "
+ClickBuyCar,点击按钮购买一辆车,Click to Buy Cars,Cliquez pour acheter une voiture,"Нажмите, чтобы купить машину"
+DragCar,拖动合成更高级的车,Merge them to get a new car,Glissez pour fusionner une nouvelle voiture,Перетащите две одинаковых машины
+CarGood,赛车等级越高过弯越容易！,Better cars will do better at corners!,"Plus le niveau est élevé, plus la manipulation est facile.","Чем выше уровень машины, тем лучше машина!"
+LoadAdsFailed,暂无广告，请稍后再试,"No ads yet, please try later","Pas de vidéo, veuillez réessayer plus tard.","Не загружена реклама, попробуйте позже."
+Time_Warp,时间道具,TIME WARP,Accélération,Предмет
+Four_H_TW,4小时赛车收益,4-hour Time Warp,Accélération *4h.,Доход за 4 часа
+One_D_TW,1天赛车收益,1-day Time Warp,Accélération *1jr.,Доход за 1 день
+Two_D_TW,2天赛车收益,2-day Time Warp,Accélération *2jr.,Доход за 2 дня
+TW_Get,获得,Get,Obtenir,Получить
+Four_Profit,立即获得4小时赛车收益！,Get 4-hour earnings instantly!,Obtenez immédiatement un revenu de 4 heures !,Позволяет получить доход за 4 часа мгновенно!
+One_Profit,立即获得1天赛车收益！,Get 1-day earnings instantly!,Obtenez immédiatement un revenu d'1 jour !,Позволяет получить доход за 1 день мгновенно!
+Two_Profit,立即获得2天赛车收益！,Get 2-days earnings instantly!,Obtenez immédiatement un revenu de 2 jours !,Позволяет получить доход за 2 дня мгновенно!
+freespin_title,幸运转盘,LUCKY SPIN,Roulette,Лотерея
+freespin_x4h,x4小时收益,x4h,x 4 H.,x4 ч.
+freespin_x4guns,x4赛车,x4 Cars,x 4 Voitures,x4 машины
+freespin_x20diamonds,x20钻石,x20 Diamond,x 20 Diamants,x20 алмазов
+freespin_x5speed,x5倍收益,x5 Earning Speed,x 5 Accélération,x5 доход
+freespin_x24h,x1天收益,x1 Day,x 24 H.,x24 ч.
+freespin_x150s,x2倍收益加速,x150s,x 150 S.,x150 сек.
+freeSpinText1,这是你的奖励！,Here is your reward!,Voici votre récompense !,Это ваша награда!
+speedDesc,/秒,/s,/s.,/ сек.
+UnLockCarReward,解锁额外奖励,Extra Bonus,Obtenez?la?récompense?supplémentaire,Разблокировать дополнительные награды
+getSpeedUpTime,获取150秒加速时间,Add Another 150 Seconds,Obtenez?l'accélération*150?s.,Получите время ускорения на150 секунд
+SpeedUp2,加速x2,Speed x2 In,Accélération*2,Ускорить х2
+task_name_1,勤劳的老司机,Old Driver,Chauffeur?travailleur,Трудолюбивый старый водитель
+task_name_2,观看视频,Watch Video,Regarder?une?vidéo,Смотреть видео
+task_name_3,赛车拥有者,Car Owner,Propriétaire?de?voitures,Владелец машины
+task_name_4,赛车爱好者,Car Enthusiast,Fan?de?voitures,Любителиь машины
+task_name_5,赛车收藏者,Car Collector,Collectionneur?de?voitures,Коллекционер машины
+task_name_6,赛车大亨,Car Tycoon,Baron?de?voitures,Автомобильный магнат
+task_name_7,车王,King of Cars,Roi?de?voitures,Король машины
+task_name_8,车神,God of Cars,,
+GetReward2,已领取,Claimed,Collecté,Получено
+BuySucessed,购买成功,Purchase Success,Achat?réussi,Ваша покупка успешно совершена
+CarOperate,操控+{0},Control +{0},Manipulation?+{0},Контроль + {0}
+AffirmRecycle,确定回收这辆车吗？,Comfirm to sell the car?,êtes-vous?s?r?de?vouloir?recycler?la?voiture??,"Вы уверены, что продать эту машину?"
+RecycleHint,回收后车位将没有赛车,There will be no cars in the garage if you sell this car,La?voiture?sera?disparue?après?l'avoir?recyclée.,"Если вы продадите эту машину, в гараже не останется этой машин."
+FreeNums,免费次数: ({0}/3),Free Chance: ({0}/3),Nombres Gratuits: ({0}/3),Бесплатный шанс: ({0}/3)
+BonusNums,收益x{0},Earnings x{0},Revenu x{0},Доход x {0}
+Loading,加载中…,Loading…,Chargement…,Загрузки...
+hint_x4h,4小时金币收益,4-hour earnings,Revenu-4 heures,Доход за 4 часа
+hint_x20diamonds,钻石x20,Diamond x20,Diamants x20,Алмаз x20
+hint_x24h,1天金币收益,1-day Earnings,Revenu-1 jour,Доход за 1 день
+hint_5speed,5倍收益,Speed x5,Vitesse de revenu x5,Ускорить х5
+hint_2speed,2倍收益加速,Speed x2,Vitesse de revenu x2,Ускорить х2
+hint_x4cars,赛车x4,Car x4,Voiture gratuite x4,Машина х4
+Push_SpinFull,转盘次数已满，快来试试手气吧！,"Hi, Driver! You've got 3 free times to spin, a lot of gifts is wating for you, please come back soon!",Vous avez 3 chances gratuites à la roulette ! Revenez vite tenter votre chance !,"Привет, водитель! У тебя есть 3 бесплатных шансов в лотерее!"
+Push_OffLineBonusFull,您已获得{0}金币，快上线领取吧！,"Hi, Driver! You've earned {0} coins in the garage, please come back soon!",Vous avez obtenu {0} pièces d'or. Revenez les collecter !,"Привет, водитель! Вы заработали {0} монет, пожалуйста, получите эти монеты!"
+RecoverTime,恢复时间:{0},Recover Time: {0},Temps rechargé: {0},Обноление: {0}
+DiamondUnEnoug,钻石不足,Insufficient Diamond,Diamants insuffisants,Не хватает алмазов
+NoNetwork,暂无广告，请稍后再试,"No ads yet, please try later","Pas de publicité, veuillez réessayer plus tard !","Не загружена реклама, попробуйте позже."
+Carport,车位,Space,Emplacement,Место
+Resurgence,点击复活,Revive,Revivre,Воскресать
+LevelUp,恭喜升级,Level Up!,Amélioration !,Улучшено!
+LevelMax,已满级,Max,Max,Макс
+BackMainUI,返回主界面,Home,Retour,Домой
+playerFeedBack,给我们一点建议,Feedback,Feed-back,Отзыв
+playerfeel,您觉得我们游戏好玩嘛？,Have Fun?,Aimez-vous ce jeu ?,Эта игра Вам нравится?
+playerMind,这是我们的一点心意,Here is a present for letting us  know!,Veuillez accepter le cadeau que nous avons préparé.,Это сюрприз для Вас.
+playerAgain,再玩玩看,Later,Plus tard,Поиграть
+playerNow,现在就去,Go Score,Noter,Сейчас
+playerYes,有一点好玩,Yes,Oui,Да
+ClickToReceive,点击领取,Claim,Cliquez pour collecter,"Нажмите, чтобы получить"
+speedUpDesc,快来体验加速收益的快感吧！,Experience the pleasure of earning speedup now!,Découvrez le plaisir du revenu accéléré !,Испытайте острые ощущения ускорения!
+threeReceive,领取3倍奖励！,Get X3,Récompense X3,Тройной
+recycleDesc1,亲爱的玩家朋友们，大家好！,"Dear Players,",,
+recycleDesc2,●为优化操作体验，我们关闭了代币兑换系统,"● To optimize game operation, we closed the Currency system.",,
+recycleDesc3,●您已经购买的特权将保留，下级开始改为金币购买,"● Your Buff will be remained, and the others will be changed to coin purchase.",,
+recycleDesc4,●之前拥有的代币，将兑换成金币返还，兑换比例为1:11000,"● You can exchange your currency into coins, and 1 currency equals 11000 coins.",,
+recycleDesc5,●祝您玩的愉快!,● Wish you a good time!,,
+recycleTitle,代币回收,Email,,
+recycleBtn,确认回收,Comfirm,,
+speedNums,加速x{0},Speed X{0},,
+coinEnough,金币不足,Insufficient Coin,,
+endlessTitle,距离赛,Endless,,
+getTichet,获得入场券,Get Tickets,,
+freeGet,免费获得,Free,,
+endlessCondition,完成{0}关解锁,Stage {0} Unlock,,
+finishChallenge,挑战结束,Finish,,
+youGet,你赚取了,Get,,
+endlessLength,{0}km,{0}km,,
+NoRecord,未记录,No Record,,
+NewRecord,新纪录,New Record,,
+getTicketDesc,每日0点补满次数,Free Tickets Refresh at 0:00,,
+CurSpeed,当前速度:{0}{1},Current Speed:{0}{1},,
+MaxSpeed,历史最高:{0}{1},Top Record:{0}{1},,
+signReceived,今日已签到,Signed,,
+versions,版本号:{0},v{0},,
+CarLength,高级车能帮你跑的更远!,Better cars will run further!,,
+NotNetwork,请连接网络…,Please Connect Network,,
+SignDesc1,今日已领取,Signed Today,,
+SignDesc2,欢迎明天再来！,Come Back Everyday to Get Daily Gifts!,,
+RefreshTime,距离下次刷新  {0},Refresh In {0},,
+BonusThree,收益x3,Get X3,,
+BonusTwo,收益x2,Get X2,,
+TipsCopy,已复制到剪贴板,Copied,,
+TipsBannedWord,名称不合法或包含敏感词汇,Include Sensitive Words,,
+TipsOperatingFrequency,操作频繁，请1分钟后再试,"Frequent Operation, Try Again 1min Later.",,
+rename,修改,Change,,
+copy,复制,Copy,,
+renameError,修改失败,Change Falied,,
+renameTitle,更改昵称,Change Name,,
+renameHint,请输入新昵称…,Please Input New Name…,,
+renameDesc,最多支持6个中文或12个英文字符,Up to 6 Chinese or 12 English characters,,
+PlayerName,昵称：,Name：,,
+SignInDefeated,签到失败，请稍后再试,"Failed Sign, Please try again later",,
+AdvPlayDefeated,播放失败,Ads Display Failure,,
+renameClientShort,名称过短,Name is too short,,
+renameClientLong,名称过长,Name is too long,,
+renameClientLegal,昵称请输入中文、英文或下划线,"Only Chinese, English and '_' is available",,
+treasureChest,豪华宝箱,Treasure Chest,,

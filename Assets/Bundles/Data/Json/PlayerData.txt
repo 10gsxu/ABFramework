@@ -1,0 +1,61 @@
+{
+	"playerInfo": {
+		"coin": 100,
+		"jewel": 100,
+        "playerLevel": 1,
+        "gameLevel": 1,
+        "maxDistance": 0,
+        "gameCarId": 1,
+        "maxCarId": 1,
+        "exp": 0,
+        "seatList": [
+            {
+                "carId": 1,
+                "boxId": 0
+            },
+            {
+                "carId": 0,
+                "boxId": 0
+            },
+            {
+                "carId": 0,
+                "boxId": 0
+            },
+            {
+                "carId": 0,
+                "boxId": 0
+            },
+            {
+                "carId": 0,
+                "boxId": 0
+            },
+            {
+                "carId": 0,
+                "boxId": 0
+            },
+            {
+                "carId": 0,
+                "boxId": 0
+            },
+            {
+                "carId": 0,
+                "boxId": 0
+            },
+            {
+                "carId": 0,
+                "boxId": 0
+            },
+            {
+                "carId": 0,
+                "boxId": 0
+            },
+            {
+                "carId": 0,
+                "boxId": 0
+            }
+        ]
+	},
+
+	"propInfo": {
+	}
+}
