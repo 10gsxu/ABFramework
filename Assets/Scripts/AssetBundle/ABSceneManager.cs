@@ -17,20 +17,7 @@ public class ABSceneManager
         fullNameDict = new Dictionary<string, string>();
     }
 
-    public void SyncLoadAssetBundle(string sceneName, string bundleName)
-    {
-        if(!sceneDict.ContainsKey(sceneName))
-        {
-            sceneDict.Add(sceneName, new ABManager(sceneName));
-        }
-        if(!fullNameDict.ContainsKey(bundleName))
-        {
-            fullNameDict.Add(bundleName, sceneName + "/" + bundleName);
-        }
-        sceneDict[sceneName].SyncLoadAssetBundle(fullNameDict[bundleName]);
-    }
-
-    public void AsyncLoadAssetBundle(string sceneName, string bundleName, LoadFinish loadFinish, LoadAssetBundleCallBack callBack)
+    private void CheckDict(string sceneName, string bundleName)
     {
         if (!sceneDict.ContainsKey(sceneName))
         {
@@ -40,6 +27,19 @@ public class ABSceneManager
         {
             fullNameDict.Add(bundleName, sceneName + "/" + bundleName);
         }
+    }
+
+    public void SyncLoadAssetBundle(string sceneName, string bundleName)
+    {
+        //检测字典
+        CheckDict(sceneName, bundleName);
+        sceneDict[sceneName].SyncLoadAssetBundle(fullNameDict[bundleName]);
+    }
+
+    public void AsyncLoadAssetBundle(string sceneName, string bundleName, LoadFinish loadFinish, LoadAssetBundleCallBack callBack)
+    {
+        //检测字典
+        CheckDict(sceneName, bundleName);
         sceneDict[sceneName].AsyncLoadAssetBundle(fullNameDict[bundleName], loadFinish, callBack);
     }
 
