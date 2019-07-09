@@ -21,17 +21,18 @@ public class EditorResourceData : CsvBase<EditorResourceData>
     private bool isExist = false;
     private Dictionary<string, int> idDict = new Dictionary<string, int>();
 
-    public void Init(string filePath)
+    public override void InitDataFromFile(string filePath)
     {
         isExist = File.Exists(filePath);
         if (isExist) {
-            InitDataFromFile(filePath);
+            base.InitDataFromFile(filePath);
             InitDict();
         }
     }
 
     private void InitDict()
     {
+        idDict.Clear();
         int dataRow = GetDataRow();
         for(int i=1; i<=dataRow; ++i)
         {

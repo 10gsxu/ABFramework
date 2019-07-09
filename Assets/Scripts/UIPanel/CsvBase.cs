@@ -16,7 +16,7 @@ public class CsvBase<T> where T : new()
 
     protected int DataRow;
 
-    public void InitDataFromFile(string filePath)
+    public virtual void InitDataFromFile(string filePath)
     {
         FileStream fs = new FileStream(filePath, FileMode.Open, FileAccess.Read);
         StreamReader sr = new StreamReader(fs);
@@ -26,7 +26,7 @@ public class CsvBase<T> where T : new()
     }
 
     //设置读取数据表的名称
-    public void InitData(string text)
+    public virtual void InitData(string text)
     {
 		DataTable.Clear();
 		levelArray.Clear();

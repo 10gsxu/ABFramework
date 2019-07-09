@@ -6,14 +6,21 @@ public class ResourceData : CsvBase<ResourceData>
 {
     private Dictionary<string, int> idDict = new Dictionary<string, int>();
 
-    public void Init(string text)
+    public override void InitData(string text)
     {
-        InitData(text);
+        base.InitData(text);
+        InitDict();
+    }
+
+    public override void InitDataFromFile(string filePath)
+    {
+        base.InitDataFromFile(filePath);
         InitDict();
     }
 
     private void InitDict()
     {
+        idDict.Clear();
         int dataRow = GetDataRow();
         for (int i = 1; i <= dataRow; ++i)
         {

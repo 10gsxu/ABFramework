@@ -75,7 +75,7 @@ public class UpdateManager : MonoBehaviour
         yield return StartCoroutine(OnExtractFile(resourceFile));
 
         localResourceData = new ResourceData();
-        localResourceData.Init(PathTools.DataPath + resourceFile);
+        localResourceData.InitDataFromFile(PathTools.DataPath + resourceFile);
         int dataRow = localResourceData.GetDataRow();
         string fullName = string.Empty;
         for (int i=1; i<=dataRow; ++i)
@@ -193,9 +193,9 @@ public class UpdateManager : MonoBehaviour
         }
         string result = www.text;
         remoteResourceData = new ResourceData();
-        remoteResourceData.Init(result);
+        remoteResourceData.InitData(result);
         localResourceData = new ResourceData();
-        localResourceData.Init(PathTools.DataPath + resourceFile);
+        localResourceData.InitDataFromFile(PathTools.DataPath + resourceFile);
         Debug.Log(localResourceData.GetDataRow());
 
         downloadList.Clear();

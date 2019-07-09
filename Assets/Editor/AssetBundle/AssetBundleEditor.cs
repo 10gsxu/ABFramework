@@ -306,7 +306,7 @@ public class AssetBundleEditor : EditorWindow
     private void GenerateDataFile()
     {
         string resourceFilePath = GetAssetBundlePath(curBuildTarget) + "/resource.csv";
-        EditorResourceData.Instance.Init(resourceFilePath);
+        EditorResourceData.Instance.InitDataFromFile(resourceFilePath);
         abItemList.Clear();
         isChange = false;
         string dirPath = GetAssetBundlePath(curBuildTarget) + "/";
