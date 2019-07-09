@@ -47,7 +47,7 @@ public class ResourceData : CsvBase<ResourceData>
     {
         if (!idDict.ContainsKey(bundleName))
             return "";
-        return GetProperty("Md5", idDict[bundleName]);
+        return GetProperty("BundleFullName", idDict[bundleName]);
     }
 
     public long GetSizeByBundleName(string bundleName)

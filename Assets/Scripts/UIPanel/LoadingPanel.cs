@@ -12,6 +12,8 @@ public class LoadingPanel : MonoBehaviour
     {
         UpdateManager.Instance.finishCallback = FinishCallback;
         UpdateManager.Instance.decompressUpdate = DecompressUpdate;
+        UpdateManager.Instance.downloadUpdate = DownloadUpdate;
+        UpdateManager.Instance.sizeUpdate = SizeUpdate;
     }
 
     private void FinishCallback(bool isUpdate)
@@ -23,5 +25,15 @@ public class LoadingPanel : MonoBehaviour
     private void DecompressUpdate(int index, int total)
     {
         progressText.text = index + "/" + total;
+    }
+
+    private void DownloadUpdate(int index, int total)
+    {
+        progressText.text = index + "/" + total;
+    }
+
+    private void SizeUpdate(long curSize, long totalSize)
+    {
+        progressText.text = curSize + "/" + totalSize;
     }
 }

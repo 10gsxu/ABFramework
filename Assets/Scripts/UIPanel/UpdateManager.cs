@@ -28,7 +28,7 @@ public class UpdateManager : MonoBehaviour
 	public Action<int, int> decompressUpdate = null;
 	public Action<long, long> sizeUpdate = null;
 
-    public string serverUrl= "https://res.gyatechnology.com/wx_douelong/cardrift/";
+    public string serverUrl= "https://xiaochu.gyatechnology.com:3993/cardrift/";
 
     void Awake()
     {
@@ -75,7 +75,7 @@ public class UpdateManager : MonoBehaviour
         yield return StartCoroutine(OnExtractFile(resourceFile));
 
         localResourceData = new ResourceData();
-        localResourceData.InitDataFromFile(PathTools.DataPath + resourceFile);
+        localResourceData.Init(PathTools.DataPath + resourceFile);
         int dataRow = localResourceData.GetDataRow();
         string fullName = string.Empty;
         for (int i=1; i<=dataRow; ++i)
@@ -163,8 +163,8 @@ public class UpdateManager : MonoBehaviour
         }
         string result = www.text;
         string[] dataArr = result.Split('\n');
-        string remoteVersionName = dataArr[0];
-        int remoteVersionCode = int.Parse(dataArr[1]);
+        int remoteVersionCode = int.Parse(dataArr[0]);
+        string remoteVersionName = dataArr[1];
 
         int localVersionCode = 1;
         string localVersionName = "1.0.0";
@@ -194,14 +194,19 @@ public class UpdateManager : MonoBehaviour
         string result = www.text;
         remoteResourceData = new ResourceData();
         remoteResourceData.Init(result);
+        localResourceData = new ResourceData();
+        localResourceData.Init(PathTools.DataPath + resourceFile);
+        Debug.Log(localResourceData.GetDataRow());
 
         downloadList.Clear();
         int dataRow = remoteResourceData.GetDataRow();
         for(int i=1; i<=dataRow; ++i)
         {
             string bundleName = remoteResourceData.GetBundleName(i);
-            string md5 = remoteResourceData.GetMd5(i);
-            if(md5 != localResourceData.GetMd5ByBundleName(bundleName))
+            string remoteMd5 = remoteResourceData.GetMd5(i);
+            string localMd5 = localResourceData.GetMd5ByBundleName(bundleName);
+            Debug.Log(remoteMd5 + " : " + localMd5);
+            if(remoteMd5.CompareTo(localMd5) != 0)
             {
                 downloadList.Add(bundleName);
             }
@@ -211,6 +216,7 @@ public class UpdateManager : MonoBehaviour
             downloadFileIndex = 0;
             downloadRetryCount = 0;
             totalFileCount = downloadList.Count;
+            Debug.Log(totalFileCount);
             finishFileSize = 0;
             GetTotalFileSize();
 			DownloadNextFile();
@@ -244,6 +250,7 @@ public class UpdateManager : MonoBehaviour
         string bundleFullName = remoteResourceData.GetBundleFullNameByBundleName(bundleName);
         string localFilePath = PathTools.DataPath + bundleFullName;
         string remoteFilePath = serverUrl + bundleFullName;
+        Debug.Log(remoteFilePath);
         float progress = 0f;
 
         //开启子线程下载,使用匿名方法
@@ -302,7 +309,7 @@ public class UpdateManager : MonoBehaviour
             //如果下载完毕，执行回调
             if (progress == 1)
             {
-                Debug.Log(bundleName + "Download finished!");
+                Debug.Log(bundleName + " Download finished!");
                 finishFileSize += remoteResourceData.GetSizeByBundleName(bundleName);
                 ++downloadFileIndex;
                 DownloadNextFile();

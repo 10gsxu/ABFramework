@@ -157,6 +157,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eca795e528e9c4e008b25ca398e596d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  serverUrl: https://xiaochu.gyatechnology.com:3993/cardrift/
 --- !u!114 &326944247
 MonoBehaviour:
   m_ObjectHideFlags: 0
