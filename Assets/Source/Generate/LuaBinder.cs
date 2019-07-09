@@ -17,7 +17,6 @@ public static class LuaBinder
 		AudioObjectWrap.Register(L);
 		LuaUIBehaviourWrap.Register(L);
 		FileToolsWrap.Register(L);
-		LuaLoadResWrap.Register(L);
 		LuaAndCMsgCenterWrap.Register(L);
 		StartGameMsgWrap.Register(L);
 		SingletonMonoBehaviour_AudioControllerWrap.Register(L);

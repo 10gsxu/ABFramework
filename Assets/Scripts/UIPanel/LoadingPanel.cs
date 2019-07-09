@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 using System;
-using U3DEventFrame;
-using UnityEngine.UI;
+using SevenZip.Compression.LZMA;
 
 public class LoadingPanel : MonoBehaviour
 {
@@ -22,7 +21,6 @@ public class LoadingPanel : MonoBehaviour
     {
         Init();
     }
-
 
     /// <summary>
     /// 初始化

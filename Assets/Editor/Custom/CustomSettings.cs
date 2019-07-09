@@ -197,7 +197,6 @@ public static class CustomSettings
         _GT(typeof(TextAsset)),
         _GT(typeof(LuaUIBehaviour)),
         _GT(typeof(FileTools)),
-        _GT(typeof(LuaLoadRes)),
         _GT(typeof(LuaAndCMsgCenter)),
         _GT(typeof(U3DEventFrame.MsgBase)),
         _GT(typeof(StartGameMsg)),

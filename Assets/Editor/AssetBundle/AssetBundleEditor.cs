@@ -268,7 +268,7 @@ public class AssetBundleEditor : EditorWindow
         string outPath = GetAssetBundlePath(curBuildTarget);
         if (!Directory.Exists(outPath))
             Directory.CreateDirectory(outPath);
-        BuildPipeline.BuildAssetBundles(outPath, BuildAssetBundleOptions.None, curBuildTarget);
+        BuildPipeline.BuildAssetBundles(outPath, BuildAssetBundleOptions.UncompressedAssetBundle, curBuildTarget);
         //拷贝Lua文件
         //HandleLuaFile();
 

@@ -1,0 +1,82 @@
+﻿using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
+
+/// <summary>
+/// 管理一个场景中的所有AssetBundle
+/// </summary>
+public class ABSceneManager
+{
+    private string sceneName;
+    private Dictionary<string, ABManager> sceneDict;
+    private Dictionary<string, string> fullNameDict;
+
+    public ABSceneManager()
+    {
+        sceneDict = new Dictionary<string, ABManager>();
+        fullNameDict = new Dictionary<string, string>();
+    }
+
+    public void SyncLoadAssetBundle(string sceneName, string bundleName)
+    {
+        if(!sceneDict.ContainsKey(sceneName))
+        {
+            sceneDict.Add(sceneName, new ABManager(sceneName));
+        }
+        if(!fullNameDict.ContainsKey(bundleName))
+        {
+            fullNameDict.Add(bundleName, sceneName + "/" + bundleName);
+        }
+        sceneDict[sceneName].SyncLoadAssetBundle(fullNameDict[bundleName]);
+    }
+
+    public void AsyncLoadAssetBundle(string sceneName, string bundleName, LoadFinish loadFinish, LoadAssetBundleCallBack callBack)
+    {
+        if (!sceneDict.ContainsKey(sceneName))
+        {
+            sceneDict.Add(sceneName, new ABManager(sceneName));
+        }
+        if (!fullNameDict.ContainsKey(bundleName))
+        {
+            fullNameDict.Add(bundleName, sceneName + "/" + bundleName);
+        }
+        sceneDict[sceneName].AsyncLoadAssetBundle(fullNameDict[bundleName], loadFinish, callBack);
+    }
+
+    public IEnumerator AsyncLoadAssetBundle(string sceneName, string bundleName)
+    {
+        yield return sceneDict[sceneName].AsyncLoadAssetBundle(fullNameDict[bundleName]);
+    }
+
+    #region 下层提供
+    public T LoadAsset<T>(string sceneName, string bundleName, string resName) where T : UnityEngine.Object
+    {
+        return sceneDict[sceneName].LoadAsset<T>(fullNameDict[bundleName], resName);
+    }
+
+    public void UnloadAsset(string sceneName, string bundleName, UnityEngine.Object asset)
+    {
+        sceneDict[sceneName].UnloadAsset(fullNameDict[bundleName], asset);
+    }
+
+    public void UnloadAsset(string sceneName, string bundleName, string resName)
+    {
+        sceneDict[sceneName].UnloadAsset(fullNameDict[bundleName], resName);
+    }
+
+    public void Release(string sceneName, string bundleName)
+    {
+        sceneDict[sceneName].Release(fullNameDict[bundleName]);
+    }
+
+    public void ReleaseAll(string sceneName, string bundleName)
+    {
+        sceneDict[sceneName].ReleaseAll(fullNameDict[bundleName]);
+    }
+
+    public void LogAllAssetNames(string sceneName, string bundleName)
+    {
+        sceneDict[sceneName].LogAllAssetNames(fullNameDict[bundleName]);
+    }
+    #endregion
+}

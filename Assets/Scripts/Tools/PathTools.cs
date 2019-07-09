@@ -41,15 +41,6 @@ public class PathTools
         }
     }
 
-    //存放AssetBundle的文件夹位置
-    public static string AssetBundlePath
-    {
-        get
-        {
-            return ResPath + PlatformFolderName + "/";
-        }
-    }
-
     //使用Www读取AssetBundle的Url
     public static string WwwDataPath
     {
@@ -61,7 +52,7 @@ public class PathTools
             }
             else
             {
-                return "file://" + AssetBundlePath;
+                return "file://" + ResPath;
             }
         }
     }
