@@ -234,6 +234,7 @@ public class UpdateManager : MonoBehaviour
 
     void DownloadNextFile()
     {
+        Debug.Log(downloadFileIndex + " : " + totalFileCount);
         //下载完成
 		if (downloadFileIndex >= totalFileCount)
         {
@@ -246,6 +247,7 @@ public class UpdateManager : MonoBehaviour
 			downloadUpdate(downloadFileIndex+1, totalFileCount);
 		}
 
+        Debug.Log(downloadList[downloadFileIndex]);
         string bundleName = downloadList[downloadFileIndex];
         string bundleFullName = remoteResourceData.GetBundleFullNameByBundleName(bundleName);
         string localFilePath = PathTools.DataPath + bundleFullName;
@@ -310,9 +312,12 @@ public class UpdateManager : MonoBehaviour
             if (progress == 1)
             {
                 Debug.Log(bundleName + " Download finished!");
-                finishFileSize += remoteResourceData.GetSizeByBundleName(bundleName);
-                ++downloadFileIndex;
-                DownloadNextFile();
+                Loom.QueueOnMainThread(() =>
+                {
+                    finishFileSize += remoteResourceData.GetSizeByBundleName(bundleName);
+                    ++downloadFileIndex;
+                    DownloadNextFile();
+                });
             }
             else
             {
