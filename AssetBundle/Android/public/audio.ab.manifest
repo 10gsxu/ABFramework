@@ -1,12 +1,12 @@
 ManifestFileVersion: 0
-CRC: 3547798982
+CRC: 758170900
 Hashes:
   AssetFileHash:
     serializedVersion: 2
     Hash: 07065cbbe70d42cd645ec46504fda77e
   TypeTreeHash:
     serializedVersion: 2
-    Hash: 34806e4ce5d32db0c2c53630c57935e7
+    Hash: 3cc706b0e62f07afacd166b378ddb5f5
 HashAppended: 0
 ClassTypes:
 - Class: 1
@@ -23,8 +23,6 @@ ClassTypes:
   Script: {fileID: 11500000, guid: d8cd7e379c2ccc242af04f0746d2d65b, type: 3}
 - Class: 114
   Script: {fileID: 11500000, guid: afc3135f9b5f7b5478b3a0645904bd2c, type: 3}
-- Class: 115
-  Script: {instanceID: 0}
 Assets:
 - Assets/ABRes/Public/Audio/Sound/Tailuozhanshi.mp3
 - Assets/ABRes/Public/Audio/Sound/Switch_role.mp3

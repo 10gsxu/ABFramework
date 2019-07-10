@@ -18,6 +18,7 @@ public class LoadingPanel : MonoBehaviour
 
     private void FinishCallback(bool isUpdate)
     {
+        AssetManager.Instance.Init();
         AssetManager.Instance.SyncLoadAssetBundle("public", "car");
         iconImage.sprite = AssetManager.Instance.LoadAsset<Sprite>("public", "car", "1");
     }

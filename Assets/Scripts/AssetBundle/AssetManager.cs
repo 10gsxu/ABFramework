@@ -9,6 +9,10 @@ public class AssetManager : MonoBehaviour {
     private void Awake()
     {
         Instance = this;
+    }
+
+    public void Init()
+    {
         //第一步 加载 ABManifest
         //StartCoroutine(ABManifestLoader.Instance.AsyncLoadManifest());
         ABManifestLoader.Instance.SyncLoadManifest();

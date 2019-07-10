@@ -237,6 +237,11 @@ public class UpdateManager : MonoBehaviour
             GetTotalFileSize();
 			DownloadNextFile();
         }
+        else
+        {
+            Debug.Log("ALL file had updated");
+            EndUpdateResource();
+        }
     }
 
     void GetTotalFileSize()
