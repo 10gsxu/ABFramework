@@ -10,11 +10,12 @@ public class UpdateConfig : ScriptableObject
     {
         get
         {
-            if (instance = null)
-                instance = new UpdateConfig();
+            if (instance == null)
+                instance = Resources.Load<UpdateConfig>("Config/UpdateConfig");
             return instance;
         }
     }
 
     public string serverUrl = "https://";
+    public AssetType assetType = AssetType.None;
 }

@@ -21,6 +21,9 @@ public class LoadingPanel : MonoBehaviour
         AssetManager.Instance.Init();
         AssetManager.Instance.SyncLoadAssetBundle("public", "car");
         iconImage.sprite = AssetManager.Instance.LoadAsset<Sprite>("public", "car", "1");
+        AssetManager.Instance.SyncLoadAssetBundle("public", "uipanel");
+        Transform itemTran = PoolManager.Instance.Spawn("public", "uipanel", "CarItem");
+
     }
 
     private void DecompressUpdate(int index, int total)

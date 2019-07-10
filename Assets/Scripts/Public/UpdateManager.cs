@@ -227,21 +227,14 @@ public class UpdateManager : MonoBehaviour
                 downloadList.Add(bundleName);
             }
         }
-        if(downloadList.Count > 0)
-        {
-            downloadFileIndex = 0;
-            downloadRetryCount = 0;
-            totalFileCount = downloadList.Count;
-            Debug.Log(totalFileCount);
-            finishFileSize = 0;
-            GetTotalFileSize();
-			DownloadNextFile();
-        }
-        else
-        {
-            Debug.Log("ALL file had updated");
-            EndUpdateResource();
-        }
+
+        downloadFileIndex = 0;
+        downloadRetryCount = 0;
+        totalFileCount = downloadList.Count;
+        Debug.Log(totalFileCount);
+        finishFileSize = 0;
+        GetTotalFileSize();
+        DownloadNextFile();
     }
 
     void GetTotalFileSize()

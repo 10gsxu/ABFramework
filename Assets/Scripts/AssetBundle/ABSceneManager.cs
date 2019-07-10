@@ -7,7 +7,6 @@ using System.Collections.Generic;
 /// </summary>
 public class ABSceneManager
 {
-    private string sceneName;
     private Dictionary<string, ABManager> sceneDict;
     private Dictionary<string, string> fullNameDict;
 
