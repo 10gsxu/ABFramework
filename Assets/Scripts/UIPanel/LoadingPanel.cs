@@ -34,6 +34,6 @@ public class LoadingPanel : MonoBehaviour
 
     private void SizeUpdate(long curSize, long totalSize)
     {
-        progressText.text = curSize + "/" + totalSize;
+        progressText.text = UtilTools.getFileSizeFormat(curSize) + "/" + UtilTools.getFileSizeFormat(totalSize);
     }
 }
