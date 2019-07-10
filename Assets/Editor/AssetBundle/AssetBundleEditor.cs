@@ -7,7 +7,6 @@ using System.IO;
 using System;
 using System.Text;
 using LeoHui;
-using SevenZip.Compression.LZMA;
 
 public class AssetBundleEditor : EditorWindow
 {
@@ -99,7 +98,7 @@ public class AssetBundleEditor : EditorWindow
             EditorGUILayout.Space();
             if (GUILayout.Button("打开压缩目录"))
             {
-                EditorUtility.RevealInFinder(GetAssetBundleCompressPath(curBuildTarget));
+                EditorUtility.RevealInFinder(GetAssetBundlePath(curBuildTarget));
             }
         }
         EditorGUILayout.Space();
@@ -334,11 +333,6 @@ public class AssetBundleEditor : EditorWindow
         return Application.dataPath.Replace("Assets", "AssetBundle") + "/" + GetFolderName(curBuildTarget) + "/";
     }
 
-    private string GetAssetBundleCompressPath(BuildTarget target)
-    {
-        return Application.dataPath.Replace("Assets", "AssetBundle") + "/" + GetFolderName(curBuildTarget) + "7z/";
-    }
-
     private string GetFolderName(BuildTarget target)
     {
         switch (target)
@@ -507,89 +501,12 @@ public class AssetBundleEditor : EditorWindow
     #region 压缩资源
     private void CompressFile()
     {
-        string inPath = GetAssetBundlePath(curBuildTarget);
-        string outPath = GetAssetBundleCompressPath(curBuildTarget);
-        if(Directory.Exists(outPath))
-        {
-            Directory.Delete(outPath, true);
-        }
-        Directory.CreateDirectory(outPath);
-
-        //复制version.txt和resource.csv
-        File.Copy(inPath + versionFile, outPath + versionFile);
-        File.Copy(inPath + resourceFile, outPath + resourceFile);
-
-        EditorResourceData.Instance.InitDataFromFile(outPath + resourceFile);
-        int dataRow = EditorResourceData.Instance.GetDataRow();
-        string bundleFullName = string.Empty;
-        Loom.RunAsync(() =>
-        {
-            Debug.Log("开始压缩文件");
-            for(int i=0; i<dataRow; ++i)
-            {
-                bundleFullName = EditorResourceData.Instance.GetBundleFullName(i+1);
-                //子文件夹
-                string[] strArr = bundleFullName.Split('/');
-                if(strArr.Length > 1)
-                {
-                    Directory.CreateDirectory(outPath + strArr[0]);
-                }
-                CompressFileLZMA(inPath + bundleFullName, outPath + bundleFullName);
-            }
-            Debug.Log("压缩文件完成");
-        });
-    }
-
-    // 使用LZMA算法压缩文件  
-    private static void CompressFileLZMA(string inFile, string outFile)
-    {
-        SevenZip.Compression.LZMA.Encoder coder = new SevenZip.Compression.LZMA.Encoder();
-        FileStream input = new FileStream(inFile, FileMode.Open);
-        FileStream output = new FileStream(outFile, FileMode.Create);
-
-        coder.WriteCoderProperties(output);
-
-        byte[] data = BitConverter.GetBytes(input.Length);
-
-        output.Write(data, 0, data.Length);
-
-        coder.Code(input, output, input.Length, -1, null);
-        output.Flush();
-        output.Close();
-        input.Close();
-    }
-
-    // 使用LZMA算法解压文件  
-    private static void DecompressFileLZMA(string inFile, string outFile)
-    {
-        SevenZip.Compression.LZMA.Decoder coder = new SevenZip.Compression.LZMA.Decoder();
-        FileStream input = new FileStream(inFile, FileMode.Open);
-        FileStream output = new FileStream(outFile, FileMode.Create);
-
-        byte[] properties = new byte[5];
-        input.Read(properties, 0, 5);
-
-        byte[] fileLengthBytes = new byte[8];
-        input.Read(fileLengthBytes, 0, 8);
-        long fileLength = BitConverter.ToInt64(fileLengthBytes, 0);
-
-        coder.SetDecoderProperties(properties);
-        coder.Code(input, output, input.Length, fileLength, null);
-        output.Flush();
-        output.Close();
-        input.Close();
     }
     #endregion
 
     #region 快速步骤
     private void UpdateBundleToStreamingAssets()
     {
-        string sourcePath = GetAssetBundleCompressPath(curBuildTarget);
-        string desPath = Application.streamingAssetsPath;
-        FileUtil.DeleteFileOrDirectory(desPath);
-        FileUtil.CopyFileOrDirectory(sourcePath, desPath);
-        AssetDatabase.Refresh();
-        EditorUtility.DisplayDialog("AssetBundle", "Copy AssetBundle To StreamingAssets", "Finish");
     }
     #endregion
 

@@ -6,7 +6,6 @@ using System.IO;
 using System;
 using LeoHui;
 using System.Net;
-using SevenZip.Compression.LZMA;
 
 public class UpdateManager : MonoBehaviour
 {
@@ -250,7 +249,8 @@ public class UpdateManager : MonoBehaviour
         Debug.Log(downloadList[downloadFileIndex]);
         string bundleName = downloadList[downloadFileIndex];
         string bundleFullName = remoteResourceData.GetBundleFullNameByBundleName(bundleName);
-        string localFilePath = PathTools.DataPath + bundleFullName;
+        //先使用中间文件
+        string localFilePath = PathTools.DataPath + bundleFullName + ".temp";
         string remoteFilePath = serverUrl + bundleFullName;
         Debug.Log(remoteFilePath);
         float progress = 0f;
