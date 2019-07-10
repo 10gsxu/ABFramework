@@ -24,7 +24,7 @@ public class ABLoader {
     /// </summary>
     public void SyncLoadAssetBundle()
     {
-        this.bundlePath = PathTools.ResPath + bundleName + AppConst.ExtName;
+        this.bundlePath = PathTools.DataPath + bundleName + AppConst.ExtName;
         AssetBundle assetBundle = AssetBundle.LoadFromFile(bundlePath);
         assetLoader = new AssetLoader(assetBundle);
         if (loadFinish != null)

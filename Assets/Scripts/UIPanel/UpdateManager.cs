@@ -345,6 +345,7 @@ public class UpdateManager : MonoBehaviour
     void FinishDownloadFile()
     {
         Debug.Log("FinishDownloadFile");
+        EndUpdateResource();
     }
 
     void EndUpdateResource()

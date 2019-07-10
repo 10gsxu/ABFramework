@@ -4,7 +4,10 @@ using UnityEngine;
 using UnityEditor;
 using UnityEditor.AnimatedValues;
 using System.IO;
+using System;
 using System.Text;
+using LeoHui;
+using SevenZip.Compression.LZMA;
 
 public class AssetBundleEditor : EditorWindow
 {
@@ -21,21 +24,26 @@ public class AssetBundleEditor : EditorWindow
     private AnimBool step1flag;
     private AnimBool step2flag;
     private AnimBool step3flag;
+    private AnimBool step4flag;
 
     private BuildTarget curBuildTarget = BuildTarget.Android;
     private List<string> fileList = new List<string>();
     private List<AssetBundleItem> abItemList = new List<AssetBundleItem>();
     private bool isChange = false;
+    private string versionFile = "version.txt";
+    private string resourceFile = "resource.csv";
 
     void OnEnable()
     {
         step1flag = new AnimBool(true);
         step2flag = new AnimBool(true);
         step3flag = new AnimBool(true);
+        step4flag = new AnimBool(true);
 
         step1flag.valueChanged.AddListener(Repaint);
         step2flag.valueChanged.AddListener(Repaint);
         step3flag.valueChanged.AddListener(Repaint);
+        step4flag.valueChanged.AddListener(Repaint);
     }
 
     void OnGUI()
@@ -52,49 +60,87 @@ public class AssetBundleEditor : EditorWindow
             {
                 SetAssetBundleName();
             }
-            EditorGUILayout.Space();
-            if (GUILayout.Button("清理缓存"))
-            {
-            }
         }
-
         EditorGUILayout.Space();
         EditorGUILayout.EndFadeGroup();
+
         step2flag.target = EditorGUILayout.ToggleLeft("步骤2 - 打包AssetBundle", step2flag.target);
         if (EditorGUILayout.BeginFadeGroup(step2flag.faded))
         {
             EditorGUILayout.Space();
             curBuildTarget = (BuildTarget)EditorGUILayout.EnumPopup("选择AssetBundle平台", curBuildTarget);
+            EditorGUILayout.Space();
             if (GUILayout.Button("Build AssetBundle (资源打包)"))
             {
                 BuildAssetBundle();
             }
+            EditorGUILayout.Space();
             if (GUILayout.Button("复制AssetBundle 到 StreamingAsset"))
             {
                 CopyAssetBundleToStreamingAssets();
             }
+            EditorGUILayout.Space();
             if (GUILayout.Button("打开AssetBundle目录"))
             {
                 EditorUtility.RevealInFinder(GetAssetBundlePath(curBuildTarget));
             }
         }
-
         EditorGUILayout.Space();
         EditorGUILayout.EndFadeGroup();
-        step3flag.target = EditorGUILayout.ToggleLeft("步骤3 - 设置AssetBundle Name", step3flag.target);
+
+        step3flag.target = EditorGUILayout.ToggleLeft("步骤3 - 压缩资源", step3flag.target);
         if (EditorGUILayout.BeginFadeGroup(step3flag.faded))
         {
             EditorGUILayout.Space();
-            if (GUILayout.Button("设置AssetBundle Name"))
+            if (GUILayout.Button("CompressFile(打包成服务器资源)"))
             {
-                SetAssetBundleName();
+                this.CompressFile();
             }
             EditorGUILayout.Space();
-            if (GUILayout.Button("清理缓存"))
+            if (GUILayout.Button("打开压缩目录"))
             {
+                EditorUtility.RevealInFinder(GetAssetBundleCompressPath(curBuildTarget));
             }
         }
+        EditorGUILayout.Space();
+        EditorGUILayout.EndFadeGroup();
 
+        step4flag.target = EditorGUILayout.ToggleLeft("QuickStep 平台资源编译(编译到StreamingAssets)", step4flag.target);
+        if (EditorGUILayout.BeginFadeGroup(step4flag.faded))
+        {
+            EditorGUILayout.Space();
+            if (GUILayout.Button("Build for StandaloneOSX"))
+            {
+
+                curBuildTarget = BuildTarget.StandaloneOSX;
+                BuildAssetBundle();
+                UpdateBundleToStreamingAssets();
+            }
+            EditorGUILayout.Space();
+            if (GUILayout.Button("Build for StandaloneWindows64"))
+            {
+
+                curBuildTarget = BuildTarget.StandaloneWindows64;
+                BuildAssetBundle();
+                UpdateBundleToStreamingAssets();
+            }
+            EditorGUILayout.Space();
+            if (GUILayout.Button("Build for Android"))
+            {
+
+                curBuildTarget = BuildTarget.Android;
+                BuildAssetBundle();
+                UpdateBundleToStreamingAssets();
+            }
+            EditorGUILayout.Space();
+            if (GUILayout.Button("Build for IOS"))
+            {
+
+                curBuildTarget = BuildTarget.iOS;
+                BuildAssetBundle();
+                UpdateBundleToStreamingAssets();
+            }
+        }
         EditorGUILayout.Space();
         EditorGUILayout.EndFadeGroup();
     }
@@ -268,7 +314,7 @@ public class AssetBundleEditor : EditorWindow
         string outPath = GetAssetBundlePath(curBuildTarget);
         if (!Directory.Exists(outPath))
             Directory.CreateDirectory(outPath);
-        BuildPipeline.BuildAssetBundles(outPath, BuildAssetBundleOptions.UncompressedAssetBundle, curBuildTarget);
+        BuildPipeline.BuildAssetBundles(outPath, BuildAssetBundleOptions.None, curBuildTarget);
         //拷贝Lua文件
         //HandleLuaFile();
 
@@ -288,6 +334,11 @@ public class AssetBundleEditor : EditorWindow
         return Application.dataPath.Replace("Assets", "AssetBundle") + "/" + GetFolderName(curBuildTarget) + "/";
     }
 
+    private string GetAssetBundleCompressPath(BuildTarget target)
+    {
+        return Application.dataPath.Replace("Assets", "AssetBundle") + "/" + GetFolderName(curBuildTarget) + "7z/";
+    }
+
     private string GetFolderName(BuildTarget target)
     {
         switch (target)
@@ -305,11 +356,11 @@ public class AssetBundleEditor : EditorWindow
 
     private void GenerateDataFile()
     {
-        string resourceFilePath = GetAssetBundlePath(curBuildTarget) + "/resource.csv";
+        string resourceFilePath = GetAssetBundlePath(curBuildTarget) + resourceFile;
         EditorResourceData.Instance.InitDataFromFile(resourceFilePath);
         abItemList.Clear();
         isChange = false;
-        string dirPath = GetAssetBundlePath(curBuildTarget) + "/";
+        string dirPath = GetAssetBundlePath(curBuildTarget);
         AddManifestAssetBundle(dirPath);
         string[] dirArr = Directory.GetDirectories(dirPath);
         for(int i=0;i<dirArr.Length; ++i)
@@ -385,7 +436,7 @@ public class AssetBundleEditor : EditorWindow
                 csvFileStr.Append('\r');
         }
         
-        string resourceFilePath = GetAssetBundlePath(curBuildTarget) + "/resource.csv";
+        string resourceFilePath = GetAssetBundlePath(curBuildTarget) + resourceFile;
         FileStream fs = File.Open(resourceFilePath, FileMode.Create);
         Encoding utf8WithoutBom = new UTF8Encoding(false);
         StreamWriter sw = new StreamWriter(fs, utf8WithoutBom);
@@ -426,7 +477,7 @@ public class AssetBundleEditor : EditorWindow
 
     public void ReadResVer(ref int resVerCode, ref string resVerName)
     {
-        string versionFilePath = GetAssetBundlePath(curBuildTarget) + "/version.txt";
+        string versionFilePath = GetAssetBundlePath(curBuildTarget) + versionFile;
         if (File.Exists(versionFilePath))
         {
             FileStream fs = new FileStream(versionFilePath, FileMode.Open, FileAccess.Read);
@@ -440,7 +491,7 @@ public class AssetBundleEditor : EditorWindow
 
     public void WriteResVer(int resVerCode, string resVerName)
     {
-        string versionFilePath = GetAssetBundlePath(curBuildTarget) + "/version.txt";
+        string versionFilePath = GetAssetBundlePath(curBuildTarget) + versionFile;
 
         FileStream assetFile = File.Open(versionFilePath, FileMode.Create);
         Encoding utf8WithoutBom = new UTF8Encoding(false);
@@ -450,6 +501,97 @@ public class AssetBundleEditor : EditorWindow
         sw.Close();
         assetFile.Close();
     }
+
+    #endregion
+
+    #region 压缩资源
+    private void CompressFile()
+    {
+        string inPath = GetAssetBundlePath(curBuildTarget);
+        string outPath = GetAssetBundleCompressPath(curBuildTarget);
+        if(Directory.Exists(outPath))
+        {
+            Directory.Delete(outPath, true);
+        }
+        Directory.CreateDirectory(outPath);
+
+        //复制version.txt和resource.csv
+        File.Copy(inPath + versionFile, outPath + versionFile);
+        File.Copy(inPath + resourceFile, outPath + resourceFile);
+
+        EditorResourceData.Instance.InitDataFromFile(outPath + resourceFile);
+        int dataRow = EditorResourceData.Instance.GetDataRow();
+        string bundleFullName = string.Empty;
+        Loom.RunAsync(() =>
+        {
+            Debug.Log("开始压缩文件");
+            for(int i=0; i<dataRow; ++i)
+            {
+                bundleFullName = EditorResourceData.Instance.GetBundleFullName(i+1);
+                //子文件夹
+                string[] strArr = bundleFullName.Split('/');
+                if(strArr.Length > 1)
+                {
+                    Directory.CreateDirectory(outPath + strArr[0]);
+                }
+                CompressFileLZMA(inPath + bundleFullName, outPath + bundleFullName);
+            }
+            Debug.Log("压缩文件完成");
+        });
+    }
+
+    // 使用LZMA算法压缩文件  
+    private static void CompressFileLZMA(string inFile, string outFile)
+    {
+        SevenZip.Compression.LZMA.Encoder coder = new SevenZip.Compression.LZMA.Encoder();
+        FileStream input = new FileStream(inFile, FileMode.Open);
+        FileStream output = new FileStream(outFile, FileMode.Create);
+
+        coder.WriteCoderProperties(output);
+
+        byte[] data = BitConverter.GetBytes(input.Length);
+
+        output.Write(data, 0, data.Length);
+
+        coder.Code(input, output, input.Length, -1, null);
+        output.Flush();
+        output.Close();
+        input.Close();
+    }
+
+    // 使用LZMA算法解压文件  
+    private static void DecompressFileLZMA(string inFile, string outFile)
+    {
+        SevenZip.Compression.LZMA.Decoder coder = new SevenZip.Compression.LZMA.Decoder();
+        FileStream input = new FileStream(inFile, FileMode.Open);
+        FileStream output = new FileStream(outFile, FileMode.Create);
+
+        byte[] properties = new byte[5];
+        input.Read(properties, 0, 5);
+
+        byte[] fileLengthBytes = new byte[8];
+        input.Read(fileLengthBytes, 0, 8);
+        long fileLength = BitConverter.ToInt64(fileLengthBytes, 0);
+
+        coder.SetDecoderProperties(properties);
+        coder.Code(input, output, input.Length, fileLength, null);
+        output.Flush();
+        output.Close();
+        input.Close();
+    }
+    #endregion
+
+    #region 快速步骤
+    private void UpdateBundleToStreamingAssets()
+    {
+        string sourcePath = GetAssetBundleCompressPath(curBuildTarget);
+        string desPath = Application.streamingAssetsPath;
+        FileUtil.DeleteFileOrDirectory(desPath);
+        FileUtil.CopyFileOrDirectory(sourcePath, desPath);
+        AssetDatabase.Refresh();
+        EditorUtility.DisplayDialog("AssetBundle", "Copy AssetBundle To StreamingAssets", "Finish");
+    }
+    #endregion
 
     /// <summary>
     /// 遍历目录及其子目录
@@ -469,8 +611,6 @@ public class AssetBundleEditor : EditorWindow
             Recursive(dir);
         }
     }
-
-    #endregion
 
     /// <summary>
     /// 处理Lua文件

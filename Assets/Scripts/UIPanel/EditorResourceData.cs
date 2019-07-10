@@ -45,6 +45,11 @@ public class EditorResourceData : CsvBase<EditorResourceData>
         return GetProperty("BundleName", id);
     }
 
+    public string GetBundleFullName(int id)
+    {
+        return GetProperty("BundleFullName", id);
+    }
+
     public string GetMd5(string bundleName)
     {
         if (!isExist || !idDict.ContainsKey(bundleName))

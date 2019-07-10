@@ -47,7 +47,7 @@ public class ABManifestLoader {
 
     public void SyncLoadManifest()
     {
-        bundlePath = PathTools.ResPath + PathTools.PlatformFolderName;
+        bundlePath = PathTools.DataPath + PathTools.PlatformFolderName;
         assetBundle = AssetBundle.LoadFromFile(bundlePath);
         assetBundleManifest = assetBundle.LoadAsset("AssetBundleManifest") as AssetBundleManifest;
     }
