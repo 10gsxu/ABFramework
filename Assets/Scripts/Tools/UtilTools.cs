@@ -30,11 +30,11 @@ public class UtilTools
     /// <summary>
     /// 计算文件的MD5值
     /// </summary>
-    public static string md5file(string file)
+    public static string md5file(string filePath)
     {
         try
         {
-            FileStream fs = new FileStream(file, FileMode.Open);
+            FileStream fs = new FileStream(filePath, FileMode.Open);
             System.Security.Cryptography.MD5 md5 = new System.Security.Cryptography.MD5CryptoServiceProvider();
             byte[] retVal = md5.ComputeHash(fs);
             fs.Close();
@@ -52,9 +52,9 @@ public class UtilTools
         }
     }
 
-    public static long getFileSize(string file)
+    public static long getFileSize(string filePath)
     {
-        FileStream fs = new FileStream(file, FileMode.Open);
+        FileStream fs = new FileStream(filePath, FileMode.Open);
         long fileSize = fs.Length;
         fs.Close();
         return fileSize;

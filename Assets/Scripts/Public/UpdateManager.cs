@@ -342,11 +342,7 @@ public class UpdateManager : MonoBehaviour
 
     void WriteResourceFile()
     {
-        FileStream fs = File.Open(PathTools.DataPath + resourceFile, FileMode.Create);
-        StreamWriter sw = new StreamWriter(fs, Encoding.UTF8);
-        sw.Write(remoteResult);
-        sw.Close();
-        fs.Close();
+        FileTools.WriteFile(PathTools.DataPath + resourceFile, remoteResult);
     }
 
     void EndUpdateResource()

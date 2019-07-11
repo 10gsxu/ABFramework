@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Text;
 using System.IO;
 using System;
 
@@ -62,6 +63,21 @@ public class FileTools
         sw.WriteLine(info);
         sw.Close();
         sw.Dispose();
+    }
+
+    /// <summary>
+    /// 写文件
+    /// </summary>
+    /// <param name="filePath"></param>
+    /// <param name="fileText"></param>
+    public static void WriteFile(string filePath, string fileText)
+    {
+        FileStream fs = new FileStream(filePath, FileMode.OpenOrCreate, FileAccess.Write);
+        Encoding utf8WithoutBom = new UTF8Encoding(false);
+        StreamWriter sw = new StreamWriter(fs, utf8WithoutBom);
+        sw.Write(fileText);
+        sw.Close();
+        fs.Close();
     }
 
     /// <summary>
