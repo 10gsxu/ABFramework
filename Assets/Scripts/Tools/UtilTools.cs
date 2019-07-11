@@ -11,10 +11,10 @@ public class UtilTools
     /// <summary>
     /// 计算字符串的MD5值
     /// </summary>
-    public static string md5(string source)
+    public static string md5(string text)
     {
         MD5CryptoServiceProvider md5 = new MD5CryptoServiceProvider();
-        byte[] data = System.Text.Encoding.UTF8.GetBytes(source);
+        byte[] data = System.Text.Encoding.UTF8.GetBytes(text);
         byte[] md5Data = md5.ComputeHash(data, 0, data.Length);
         md5.Clear();
 
