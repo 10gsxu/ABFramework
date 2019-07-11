@@ -13,7 +13,7 @@ public class FileTools
     {
         get
         {
-            if (Application.platform == RuntimePlatform.IPhonePlayer || Application.platform == RuntimePlatform.Android)
+            if (Application.isMobilePlatform)
             {
                 string tempPath = Application.persistentDataPath, dataPath;
                 if (!string.IsNullOrEmpty(tempPath))
@@ -36,14 +36,9 @@ public class FileTools
                     return dataPath + "/";
                 }
             }
-            else if (Application.platform == RuntimePlatform.WindowsEditor || Application.platform == RuntimePlatform.OSXEditor)
-            {
-                ///*如果是电脑的编辑模式，先放在项目外面*/
-                return Application.dataPath.Replace("Assets", "");
-            }
             else
             {
-                return Application.dataPath + "/";
+                return Application.dataPath.Replace("Assets", "");
             }
         }
     }

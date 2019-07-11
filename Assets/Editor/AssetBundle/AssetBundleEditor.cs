@@ -105,7 +105,7 @@ namespace LeoHui
                     CopyAssetBundleToStreamingAssets();
                 }
                 EditorGUILayout.Space();
-                if (GUILayout.Button("Build for IOS"))
+                if (GUILayout.Button("Build for iOS"))
                 {
 
                     curBuildTarget = BuildTarget.iOS;
@@ -313,10 +313,12 @@ namespace LeoHui
                 case BuildTarget.Android:
                     return "Android";
                 case BuildTarget.iOS:
-                    return "IOS";
+                    return "iOS";
                 case BuildTarget.StandaloneWindows:
                     return "Windows";
-                default:
+				case BuildTarget.StandaloneOSX:
+					return "OSX";
+				default:
                     return null;
             }
         }
@@ -324,6 +326,10 @@ namespace LeoHui
         private void GenerateDataFile()
         {
             string resourceFilePath = GetAssetBundlePath(curBuildTarget) + resourceFile;
+            if(!File.Exists(resourceFilePath))
+            {
+                GenerateResourceFile();
+            }
             resourceData = new ResourceData();
             resourceData.InitDataFromFile(resourceFilePath);
             abItemList.Clear();

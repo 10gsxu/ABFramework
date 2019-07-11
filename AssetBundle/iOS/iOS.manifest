@@ -1,0 +1,29 @@
+ManifestFileVersion: 0
+CRC: 1754707361
+AssetBundleManifest:
+  AssetBundleInfos:
+    Info_0:
+      Name: public/audio.ab
+      Dependencies: {}
+    Info_1:
+      Name: public/car.ab
+      Dependencies: {}
+    Info_2:
+      Name: public/data.ab
+      Dependencies: {}
+    Info_3:
+      Name: public/font.ab
+      Dependencies: {}
+    Info_4:
+      Name: public/sprite.ab
+      Dependencies: {}
+    Info_5:
+      Name: public/uipanel.ab
+      Dependencies:
+        Dependency_0: public/car.ab
+        Dependency_1: public/sprite.ab
+    Info_6:
+      Name: public/uiitem.ab
+      Dependencies:
+        Dependency_0: public/car.ab
+        Dependency_1: public/sprite.ab
