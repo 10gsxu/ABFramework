@@ -80,6 +80,11 @@ public class AssetManager : MonoBehaviour {
             }
             return AssetDatabase.LoadAssetAtPath<T>(filePath);
         }
+        else if(assetType == AssetType.Resources)
+        {
+            string filePath = sceneName + "/" + bundleName + "/" + resName;
+            return Resources.Load<T>(filePath);
+        }
 #endif
         return sceneManager.LoadAsset<T>(sceneName, bundleName, resName);
     }

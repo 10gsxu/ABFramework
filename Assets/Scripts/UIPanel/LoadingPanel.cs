@@ -19,10 +19,10 @@ public class LoadingPanel : MonoBehaviour
     private void FinishCallback(bool isUpdate)
     {
         AssetManager.Instance.Init();
-        AssetManager.Instance.SyncLoadAssetBundle("public", "car");
-        iconImage.sprite = AssetManager.Instance.LoadAsset<Sprite>("public", "car", "1");
-        AssetManager.Instance.SyncLoadAssetBundle("public", "uipanel");
-        Transform itemTran = PoolManager.Instance.Spawn("public", "uipanel", "CarItem");
+        AssetManager.Instance.SyncLoadAssetBundle("Public", "Car");
+        iconImage.sprite = AssetManager.Instance.LoadAsset<Sprite>("Public", "Car", "1");
+        AssetManager.Instance.SyncLoadAssetBundle("Public", "UIPanel");
+        Transform itemTran = PoolManager.Instance.Spawn("Public", "UIPanel", "CarItem");
 
     }
 

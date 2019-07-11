@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: UpdateConfig
   m_EditorClassIdentifier: 
   serverUrl: https://
-  assetType: 2
+  assetType: 0
