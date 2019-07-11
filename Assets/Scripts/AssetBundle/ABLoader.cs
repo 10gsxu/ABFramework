@@ -36,7 +36,7 @@ namespace LeoHui
         /// </summary>
         public IEnumerator AsyncLoadAssetBundle()
         {
-            this.bundlePath = PathTools.WwwDataPath + bundleName;
+            this.bundlePath = PathTools.WwwDataPath + bundleName + AppConst.ExtName;
             using (WWW www = new WWW(bundlePath))
             {
                 yield return www;

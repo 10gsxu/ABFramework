@@ -44,9 +44,15 @@ namespace LeoHui
             sceneDict[sceneName].AsyncLoadAssetBundle(fullNameDict[bundleName], loadFinish, callBack);
         }
 
-        public IEnumerator AsyncLoadAssetBundle(string sceneName, string bundleName)
+        /// <summary>
+        /// 协程加载AssetBundle
+        /// </summary>
+        /// <param name="sceneName"></param>
+        /// <param name="bundleFullName"></param>
+        /// <returns></returns>
+        public IEnumerator AsyncLoadAssetBundle(string sceneName, string bundleFullName)
         {
-            yield return sceneDict[sceneName].AsyncLoadAssetBundle(fullNameDict[bundleName]);
+            yield return sceneDict[sceneName].AsyncLoadAssetBundle(bundleFullName);
         }
 
         #region 下层提供

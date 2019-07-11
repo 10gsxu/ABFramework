@@ -21,8 +21,8 @@ namespace LeoHui
         public void Init()
         {
             //第一步 加载 ABManifest
-            //StartCoroutine(ABManifestLoader.Instance.AsyncLoadManifest());
-            ABManifestLoader.Instance.SyncLoadManifest();
+            StartCoroutine(ABManifestLoader.Instance.AsyncLoadManifest());
+            //ABManifestLoader.Instance.SyncLoadManifest();
             sceneManager = new ABSceneManager();
             if (Application.isMobilePlatform)
             {
@@ -45,15 +45,15 @@ namespace LeoHui
             System.GC.Collect();
         }
 
-        public void LoadCallBack(string sceneName, string bundleName)
+        public void LoadAssetBundleCallBack(string sceneName, string bundleFullName)
         {
-            StartCoroutine(sceneManager.AsyncLoadAssetBundle(sceneName, bundleName));
+            StartCoroutine(sceneManager.AsyncLoadAssetBundle(sceneName, bundleFullName));
         }
 
         //异步加载
         public void AsyncLoadAssetBundle(string sceneName, string bundleName, LoadFinish loadFinish)
         {
-            sceneManager.AsyncLoadAssetBundle(sceneName, bundleName, loadFinish, LoadCallBack);
+            sceneManager.AsyncLoadAssetBundle(sceneName, bundleName, loadFinish, LoadAssetBundleCallBack);
         }
 
         //同步加载
