@@ -2,65 +2,68 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ResourceData : CsvBase<ResourceData>
+namespace LeoHui
 {
-    private Dictionary<string, int> idDict = new Dictionary<string, int>();
-
-    public override void InitData(string text)
+    public class ResourceData : CsvBase<ResourceData>
     {
-        base.InitData(text);
-        InitDict();
-    }
+        private Dictionary<string, int> idDict = new Dictionary<string, int>();
 
-    public override void InitDataFromFile(string filePath)
-    {
-        base.InitDataFromFile(filePath);
-        InitDict();
-    }
-
-    private void InitDict()
-    {
-        idDict.Clear();
-        int dataRow = GetDataRow();
-        for (int i = 1; i <= dataRow; ++i)
+        public override void InitData(string text)
         {
-            idDict.Add(GetBundleName(i), i);
+            base.InitData(text);
+            InitDict();
         }
-    }
 
-    public string GetBundleName(int id)
-    {
-        return GetProperty("BundleName", id);
-    }
+        public override void InitDataFromFile(string filePath)
+        {
+            base.InitDataFromFile(filePath);
+            InitDict();
+        }
 
-    public string GetBundleFullName(int id)
-    {
-        return GetProperty("BundleFullName", id);
-    }
+        private void InitDict()
+        {
+            idDict.Clear();
+            int dataRow = GetDataRow();
+            for (int i = 1; i <= dataRow; ++i)
+            {
+                idDict.Add(GetBundleName(i), i);
+            }
+        }
 
-    public string GetMd5(int id)
-    {
-        return GetProperty("Md5", id);
-    }
+        public string GetBundleName(int id)
+        {
+            return GetProperty("BundleName", id);
+        }
 
-    public string GetMd5ByBundleName(string bundleName)
-    {
-        if (!idDict.ContainsKey(bundleName))
-            return "";
-        return GetProperty("Md5", idDict[bundleName]);
-    }
+        public string GetBundleFullName(int id)
+        {
+            return GetProperty("BundleFullName", id);
+        }
 
-    public string GetBundleFullNameByBundleName(string bundleName)
-    {
-        if (!idDict.ContainsKey(bundleName))
-            return "";
-        return GetProperty("BundleFullName", idDict[bundleName]);
-    }
+        public string GetMd5(int id)
+        {
+            return GetProperty("Md5", id);
+        }
 
-    public long GetSizeByBundleName(string bundleName)
-    {
-        if (!idDict.ContainsKey(bundleName))
-            return 0;
-        return long.Parse(GetProperty("Size", idDict[bundleName]));
+        public string GetMd5ByBundleName(string bundleName)
+        {
+            if (!idDict.ContainsKey(bundleName))
+                return "";
+            return GetProperty("Md5", idDict[bundleName]);
+        }
+
+        public string GetBundleFullNameByBundleName(string bundleName)
+        {
+            if (!idDict.ContainsKey(bundleName))
+                return "";
+            return GetProperty("BundleFullName", idDict[bundleName]);
+        }
+
+        public long GetSizeByBundleName(string bundleName)
+        {
+            if (!idDict.ContainsKey(bundleName))
+                return 0;
+            return long.Parse(GetProperty("Size", idDict[bundleName]));
+        }
     }
 }
