@@ -5,113 +5,117 @@ using UnityEngine;
 using UnityEditor;
 #endif
 
-public class AssetManager : MonoBehaviour {
-    public static AssetManager Instance;
-    private ABSceneManager sceneManager;
-    private AssetType assetType = AssetType.None;
-
-    private void Awake()
+namespace LeoHui
+{
+    public class AssetManager : MonoBehaviour
     {
-        Instance = this;
-    }
+        public static AssetManager Instance;
+        private ABSceneManager sceneManager;
+        private AssetType assetType = AssetType.None;
 
-    public void Init()
-    {
-        //第一步 加载 ABManifest
-        //StartCoroutine(ABManifestLoader.Instance.AsyncLoadManifest());
-        ABManifestLoader.Instance.SyncLoadManifest();
-        sceneManager = new ABSceneManager();
-        if(Application.isMobilePlatform)
+        private void Awake()
         {
-            assetType = AssetType.AssetBundle;
+            Instance = this;
         }
-        else
+
+        public void Init()
         {
-            assetType = AssetType.AssetDatabase;
-        }
-#if UNITY_EDITOR || UNITY_EDITOR_OSX
-        if (UpdateConfig.Instance.assetType != AssetType.None)
-        {
-            assetType = UpdateConfig.Instance.assetType;
-        }
-#endif
-    }
-
-    private void OnDestroy()
-    {
-        System.GC.Collect();
-    }
-
-    public void LoadCallBack(string sceneName, string bundleName)
-    {
-        StartCoroutine(sceneManager.AsyncLoadAssetBundle(sceneName, bundleName));
-    }
-
-    //异步加载
-    public void AsyncLoadAssetBundle(string sceneName, string bundleName, LoadFinish loadFinish)
-    {
-        sceneManager.AsyncLoadAssetBundle(sceneName, bundleName, loadFinish, LoadCallBack);
-    }
-
-    //同步加载
-    public void SyncLoadAssetBundle(string sceneName, string bundleName)
-    {
-        sceneManager.SyncLoadAssetBundle(sceneName, bundleName);
-    }
-
-    #region 由下层API提供
-    public T LoadAsset<T>(string sceneName, string bundleName, string resName) where T : UnityEngine.Object
-    {
-#if UNITY_EDITOR || UNITY_EDITOR_OSX
-        if (assetType == AssetType.AssetDatabase)
-        {
-            string filePath = "Assets/" + PathTools.ABResFolderName + "/" + sceneName + "/" + bundleName + "/" + resName;
-            switch(typeof(T).FullName)
+            //第一步 加载 ABManifest
+            //StartCoroutine(ABManifestLoader.Instance.AsyncLoadManifest());
+            ABManifestLoader.Instance.SyncLoadManifest();
+            sceneManager = new ABSceneManager();
+            if (Application.isMobilePlatform)
             {
-                case "UnityEngine.GameObject":
-                    filePath += ".prefab";
-                    break;
-                case "UnityEngine.Sprite":
-                    filePath += ".png";
-                    break;
-                case "UnityEngine.TextAsset":
-                    filePath += ".txt";
-                    break;
+                assetType = AssetType.AssetBundle;
             }
-            return AssetDatabase.LoadAssetAtPath<T>(filePath);
-        }
-        else if(assetType == AssetType.Resources)
-        {
-            string filePath = sceneName + "/" + bundleName + "/" + resName;
-            return Resources.Load<T>(filePath);
-        }
+            else
+            {
+                assetType = AssetType.AssetDatabase;
+            }
+#if UNITY_EDITOR || UNITY_EDITOR_OSX
+            if (UpdateConfig.Instance.assetType != AssetType.None)
+            {
+                assetType = UpdateConfig.Instance.assetType;
+            }
 #endif
-        return sceneManager.LoadAsset<T>(sceneName, bundleName, resName);
-    }
+        }
 
-    public void UnloadAsset(string sceneName, string bundleName, string resName)
-    {
-        sceneManager.UnloadAsset(sceneName, bundleName, resName);
-    }
+        private void OnDestroy()
+        {
+            System.GC.Collect();
+        }
 
-    public void UnloadAsset(string sceneName, string bundleName, UnityEngine.Object asset)
-    {
-        sceneManager.UnloadAsset(sceneName, bundleName, asset);
-    }
+        public void LoadCallBack(string sceneName, string bundleName)
+        {
+            StartCoroutine(sceneManager.AsyncLoadAssetBundle(sceneName, bundleName));
+        }
 
-    public void Release(string sceneName, string bundleName)
-    {
-        sceneManager.Release(sceneName, bundleName);
-    }
+        //异步加载
+        public void AsyncLoadAssetBundle(string sceneName, string bundleName, LoadFinish loadFinish)
+        {
+            sceneManager.AsyncLoadAssetBundle(sceneName, bundleName, loadFinish, LoadCallBack);
+        }
 
-    public void ReleaseAll(string sceneName, string bundleName)
-    {
-        sceneManager.ReleaseAll(sceneName, bundleName);
-    }
+        //同步加载
+        public void SyncLoadAssetBundle(string sceneName, string bundleName)
+        {
+            sceneManager.SyncLoadAssetBundle(sceneName, bundleName);
+        }
 
-    public void LogAllAssetNames(string sceneName, string bundleName)
-    {
-        sceneManager.LogAllAssetNames(sceneName, bundleName);
+        #region 由下层API提供
+        public T LoadAsset<T>(string sceneName, string bundleName, string resName) where T : UnityEngine.Object
+        {
+#if UNITY_EDITOR || UNITY_EDITOR_OSX
+            if (assetType == AssetType.AssetDatabase)
+            {
+                string filePath = "Assets/" + PathTools.ABResFolderName + "/" + sceneName + "/" + bundleName + "/" + resName;
+                switch (typeof(T).FullName)
+                {
+                    case "UnityEngine.GameObject":
+                        filePath += ".prefab";
+                        break;
+                    case "UnityEngine.Sprite":
+                        filePath += ".png";
+                        break;
+                    case "UnityEngine.TextAsset":
+                        filePath += ".txt";
+                        break;
+                }
+                return AssetDatabase.LoadAssetAtPath<T>(filePath);
+            }
+            else if (assetType == AssetType.Resources)
+            {
+                string filePath = sceneName + "/" + bundleName + "/" + resName;
+                return Resources.Load<T>(filePath);
+            }
+#endif
+            return sceneManager.LoadAsset<T>(sceneName, bundleName, resName);
+        }
+
+        public void UnloadAsset(string sceneName, string bundleName, string resName)
+        {
+            sceneManager.UnloadAsset(sceneName, bundleName, resName);
+        }
+
+        public void UnloadAsset(string sceneName, string bundleName, UnityEngine.Object asset)
+        {
+            sceneManager.UnloadAsset(sceneName, bundleName, asset);
+        }
+
+        public void Release(string sceneName, string bundleName)
+        {
+            sceneManager.Release(sceneName, bundleName);
+        }
+
+        public void ReleaseAll(string sceneName, string bundleName)
+        {
+            sceneManager.ReleaseAll(sceneName, bundleName);
+        }
+
+        public void LogAllAssetNames(string sceneName, string bundleName)
+        {
+            sceneManager.LogAllAssetNames(sceneName, bundleName);
+        }
+        #endregion
     }
-    #endregion
 }

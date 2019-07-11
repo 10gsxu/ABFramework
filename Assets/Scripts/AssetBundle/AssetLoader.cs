@@ -3,79 +3,84 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public class AssetLoader : IDisposable {
-
-    private AssetBundle assetBundle;
-    private Dictionary<string, UnityEngine.Object> assetDict;
-
-    public AssetLoader(AssetBundle bundle)
+namespace LeoHui
+{
+    public class AssetLoader : IDisposable
     {
-        assetBundle = bundle;
-        assetDict = new Dictionary<string, UnityEngine.Object>();
-    }
 
-    /// <summary>
-    /// 加载单个资源
-    /// </summary>
-    public T LoadAsset<T>(string resName) where T : UnityEngine.Object
-    {
-        if(assetDict.ContainsKey(resName))
+        private AssetBundle assetBundle;
+        private Dictionary<string, UnityEngine.Object> assetDict;
+
+        public AssetLoader(AssetBundle bundle)
         {
-            return assetDict[resName] as T;
+            assetBundle = bundle;
+            assetDict = new Dictionary<string, UnityEngine.Object>();
         }
-        if (!this.assetBundle.Contains(resName))
+
+        /// <summary>
+        /// 加载单个资源
+        /// </summary>
+        public T LoadAsset<T>(string resName) where T : UnityEngine.Object
         {
-            Debug.Log("AssetBundle not contain : " + resName);
-            return null;
+            if (assetDict.ContainsKey(resName))
+            {
+                return assetDict[resName] as T;
+            }
+            if (!this.assetBundle.Contains(resName))
+            {
+                Debug.Log("AssetBundle not contain : " + resName);
+                return null;
+            }
+            T asset = assetBundle.LoadAsset<T>(resName);
+            assetDict.Add(resName, asset);
+            return asset;
         }
-        T asset = assetBundle.LoadAsset<T>(resName);
-        assetDict.Add(resName, asset);
-        return asset;
-    }
-	
-    /// <summary>
-    /// 卸载单个资源
-    /// </summary>
-    public void UnloadAsset(UnityEngine.Object asset)
-    {
-        Resources.UnloadAsset(asset);
-    }
 
-    /// <summary>
-    /// 卸载单个资源
-    /// </summary>
-    public void UnloadAsset(string resName)
-    {
-        if(assetDict.ContainsKey(resName))
+        /// <summary>
+        /// 卸载单个资源
+        /// </summary>
+        public void UnloadAsset(UnityEngine.Object asset)
         {
-            UnloadAsset(assetDict[resName]);
-            assetDict.Remove(resName);
+            Resources.UnloadAsset(asset);
         }
-    }
 
-    /// <summary>
-    /// 释放AssetBundle包
-    /// </summary>
-    public void Dispose()
-    {
-        assetBundle.Unload(false);
-    }
-
-    public void DisposeAll()
-    {
-        assetBundle.Unload(true);
-        assetDict.Clear();
-    }
-
-    /// <summary>
-    /// 打印所有资源的名称
-    /// </summary>
-    public void LogAllAssetNames()
-    {
-        string[] assetNames = assetBundle.GetAllAssetNames();
-        for (int i = 0; i < assetNames.Length; ++i)
+        /// <summary>
+        /// 卸载单个资源
+        /// </summary>
+        public void UnloadAsset(string resName)
         {
-            Debug.Log("AssetBundle Contain Asset Name : " + assetNames[i]);
+            if (assetDict.ContainsKey(resName))
+            {
+                UnloadAsset(assetDict[resName]);
+                assetDict.Remove(resName);
+            }
+        }
+
+        /// <summary>
+        /// 释放AssetBundle包
+        /// </summary>
+        public void Dispose()
+        {
+            assetBundle.Unload(false);
+        }
+
+        public void DisposeAll()
+        {
+            assetBundle.Unload(true);
+            assetDict.Clear();
+        }
+
+        /// <summary>
+        /// 打印所有资源的名称
+        /// </summary>
+        public void LogAllAssetNames()
+        {
+            string[] assetNames = assetBundle.GetAllAssetNames();
+            for (int i = 0; i < assetNames.Length; ++i)
+            {
+                Debug.Log("AssetBundle Contain Asset Name : " + assetNames[i]);
+            }
         }
     }
+
 }

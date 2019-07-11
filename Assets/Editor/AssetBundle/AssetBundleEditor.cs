@@ -23,7 +23,6 @@ public class AssetBundleEditor : EditorWindow
     private AnimBool step1flag;
     private AnimBool step2flag;
     private AnimBool step3flag;
-    private AnimBool step4flag;
 
     private BuildTarget curBuildTarget = BuildTarget.Android;
     private List<string> fileList = new List<string>();
@@ -37,16 +36,15 @@ public class AssetBundleEditor : EditorWindow
         step1flag = new AnimBool(true);
         step2flag = new AnimBool(true);
         step3flag = new AnimBool(true);
-        step4flag = new AnimBool(true);
 
         step1flag.valueChanged.AddListener(Repaint);
         step2flag.valueChanged.AddListener(Repaint);
         step3flag.valueChanged.AddListener(Repaint);
-        step4flag.valueChanged.AddListener(Repaint);
     }
 
     void OnGUI()
     {
+        ReadResVer(ref curVersionCode, ref curVersionName);
         GUILayout.Label("当前版本信息", EditorStyles.whiteLargeLabel);
         curVersionName = EditorGUILayout.TextField("版本名", curVersionName);
         curVersionCode = EditorGUILayout.IntField("版本号", curVersionCode);
@@ -87,25 +85,8 @@ public class AssetBundleEditor : EditorWindow
         EditorGUILayout.Space();
         EditorGUILayout.EndFadeGroup();
 
-        step3flag.target = EditorGUILayout.ToggleLeft("步骤3 - 压缩资源", step3flag.target);
+        step3flag.target = EditorGUILayout.ToggleLeft("Quick打包-平台资源编译(编译到StreamingAssets)", step3flag.target);
         if (EditorGUILayout.BeginFadeGroup(step3flag.faded))
-        {
-            EditorGUILayout.Space();
-            if (GUILayout.Button("CompressFile(打包成服务器资源)"))
-            {
-                this.CompressFile();
-            }
-            EditorGUILayout.Space();
-            if (GUILayout.Button("打开压缩目录"))
-            {
-                EditorUtility.RevealInFinder(GetAssetBundlePath(curBuildTarget));
-            }
-        }
-        EditorGUILayout.Space();
-        EditorGUILayout.EndFadeGroup();
-
-        step4flag.target = EditorGUILayout.ToggleLeft("QuickStep 平台资源编译(编译到StreamingAssets)", step4flag.target);
-        if (EditorGUILayout.BeginFadeGroup(step4flag.faded))
         {
             EditorGUILayout.Space();
             if (GUILayout.Button("Build for StandaloneOSX"))
@@ -113,7 +94,7 @@ public class AssetBundleEditor : EditorWindow
 
                 curBuildTarget = BuildTarget.StandaloneOSX;
                 BuildAssetBundle();
-                UpdateBundleToStreamingAssets();
+                CopyAssetBundleToStreamingAssets();
             }
             EditorGUILayout.Space();
             if (GUILayout.Button("Build for StandaloneWindows64"))
@@ -121,7 +102,7 @@ public class AssetBundleEditor : EditorWindow
 
                 curBuildTarget = BuildTarget.StandaloneWindows64;
                 BuildAssetBundle();
-                UpdateBundleToStreamingAssets();
+                CopyAssetBundleToStreamingAssets();
             }
             EditorGUILayout.Space();
             if (GUILayout.Button("Build for Android"))
@@ -129,7 +110,7 @@ public class AssetBundleEditor : EditorWindow
 
                 curBuildTarget = BuildTarget.Android;
                 BuildAssetBundle();
-                UpdateBundleToStreamingAssets();
+                CopyAssetBundleToStreamingAssets();
             }
             EditorGUILayout.Space();
             if (GUILayout.Button("Build for IOS"))
@@ -137,7 +118,7 @@ public class AssetBundleEditor : EditorWindow
 
                 curBuildTarget = BuildTarget.iOS;
                 BuildAssetBundle();
-                UpdateBundleToStreamingAssets();
+                CopyAssetBundleToStreamingAssets();
             }
         }
         EditorGUILayout.Space();
@@ -497,74 +478,4 @@ public class AssetBundleEditor : EditorWindow
     }
 
     #endregion
-
-    #region 压缩资源
-    private void CompressFile()
-    {
-    }
-    #endregion
-
-    #region 快速步骤
-    private void UpdateBundleToStreamingAssets()
-    {
-    }
-    #endregion
-
-    /// <summary>
-    /// 遍历目录及其子目录
-    /// </summary>
-    private void Recursive(string path)
-    {
-        string[] fileArr = Directory.GetFiles(path);
-        string[] dirArr = Directory.GetDirectories(path);
-        foreach (string file in fileArr)
-        {
-            string ext = Path.GetExtension(file);
-            if (ext.EndsWith(".meta") || ext.EndsWith(".DS_Store")) continue;
-            fileList.Add(file.Replace('\\', '/'));
-        }
-        foreach (string dir in dirArr)
-        {
-            Recursive(dir);
-        }
-    }
-
-    /// <summary>
-    /// 处理Lua文件
-    /// </summary>
-    void HandleLuaFile()
-    {
-        string resPath = PathTools.ResPath + GetFolderName(EditorUserBuildSettings.activeBuildTarget) + "/";
-        string luaPath = resPath + "lua/";
-
-        //----------复制Lua文件----------------
-        if (!Directory.Exists(luaPath))
-        {
-            Directory.CreateDirectory(luaPath);
-        }
-        string[] luaPaths = { Application.dataPath + "/Lua/",
-                              Application.dataPath + "/Tolua/Lua/" };
-
-        for (int i = 0; i < luaPaths.Length; i++)
-        {
-            fileList.Clear();
-            string luaDataPath = luaPaths[i].ToLower();
-            Recursive(luaDataPath);
-            int n = 0;
-            foreach (string f in fileList)
-            {
-                if (f.EndsWith(".meta")) continue;
-                string newfile = f.Replace(luaDataPath, "");
-                string newpath = luaPath + newfile;
-                string path = Path.GetDirectoryName(newpath);
-                if (!Directory.Exists(path)) Directory.CreateDirectory(path);
-
-                if (File.Exists(newpath))
-                {
-                    File.Delete(newpath);
-                }
-                File.Copy(f, newpath, true);
-            }
-        }
-    }
 }

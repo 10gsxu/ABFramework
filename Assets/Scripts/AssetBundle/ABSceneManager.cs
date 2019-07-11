@@ -2,80 +2,83 @@
 using System.Collections;
 using System.Collections.Generic;
 
-/// <summary>
-/// 管理一个场景中的所有AssetBundle
-/// </summary>
-public class ABSceneManager
+namespace LeoHui
 {
-    private Dictionary<string, ABManager> sceneDict;
-    private Dictionary<string, string> fullNameDict;
-
-    public ABSceneManager()
+    /// <summary>
+    /// 管理一个场景中的所有AssetBundle
+    /// </summary>
+    public class ABSceneManager
     {
-        sceneDict = new Dictionary<string, ABManager>();
-        fullNameDict = new Dictionary<string, string>();
-    }
+        private Dictionary<string, ABManager> sceneDict;
+        private Dictionary<string, string> fullNameDict;
 
-    private void CheckDict(string sceneName, string bundleName)
-    {
-        if (!sceneDict.ContainsKey(sceneName))
+        public ABSceneManager()
         {
-            sceneDict.Add(sceneName, new ABManager(sceneName));
+            sceneDict = new Dictionary<string, ABManager>();
+            fullNameDict = new Dictionary<string, string>();
         }
-        if (!fullNameDict.ContainsKey(bundleName))
+
+        private void CheckDict(string sceneName, string bundleName)
         {
-            fullNameDict.Add(bundleName, sceneName + "/" + bundleName);
+            if (!sceneDict.ContainsKey(sceneName))
+            {
+                sceneDict.Add(sceneName, new ABManager(sceneName));
+            }
+            if (!fullNameDict.ContainsKey(bundleName))
+            {
+                fullNameDict.Add(bundleName, sceneName + "/" + bundleName);
+            }
         }
-    }
 
-    public void SyncLoadAssetBundle(string sceneName, string bundleName)
-    {
-        //检测字典
-        CheckDict(sceneName, bundleName);
-        sceneDict[sceneName].SyncLoadAssetBundle(fullNameDict[bundleName]);
-    }
+        public void SyncLoadAssetBundle(string sceneName, string bundleName)
+        {
+            //检测字典
+            CheckDict(sceneName, bundleName);
+            sceneDict[sceneName].SyncLoadAssetBundle(fullNameDict[bundleName]);
+        }
 
-    public void AsyncLoadAssetBundle(string sceneName, string bundleName, LoadFinish loadFinish, LoadAssetBundleCallBack callBack)
-    {
-        //检测字典
-        CheckDict(sceneName, bundleName);
-        sceneDict[sceneName].AsyncLoadAssetBundle(fullNameDict[bundleName], loadFinish, callBack);
-    }
+        public void AsyncLoadAssetBundle(string sceneName, string bundleName, LoadFinish loadFinish, LoadAssetBundleCallBack callBack)
+        {
+            //检测字典
+            CheckDict(sceneName, bundleName);
+            sceneDict[sceneName].AsyncLoadAssetBundle(fullNameDict[bundleName], loadFinish, callBack);
+        }
 
-    public IEnumerator AsyncLoadAssetBundle(string sceneName, string bundleName)
-    {
-        yield return sceneDict[sceneName].AsyncLoadAssetBundle(fullNameDict[bundleName]);
-    }
+        public IEnumerator AsyncLoadAssetBundle(string sceneName, string bundleName)
+        {
+            yield return sceneDict[sceneName].AsyncLoadAssetBundle(fullNameDict[bundleName]);
+        }
 
-    #region 下层提供
-    public T LoadAsset<T>(string sceneName, string bundleName, string resName) where T : UnityEngine.Object
-    {
-        return sceneDict[sceneName].LoadAsset<T>(fullNameDict[bundleName], resName);
-    }
+        #region 下层提供
+        public T LoadAsset<T>(string sceneName, string bundleName, string resName) where T : UnityEngine.Object
+        {
+            return sceneDict[sceneName].LoadAsset<T>(fullNameDict[bundleName], resName);
+        }
 
-    public void UnloadAsset(string sceneName, string bundleName, UnityEngine.Object asset)
-    {
-        sceneDict[sceneName].UnloadAsset(fullNameDict[bundleName], asset);
-    }
+        public void UnloadAsset(string sceneName, string bundleName, UnityEngine.Object asset)
+        {
+            sceneDict[sceneName].UnloadAsset(fullNameDict[bundleName], asset);
+        }
 
-    public void UnloadAsset(string sceneName, string bundleName, string resName)
-    {
-        sceneDict[sceneName].UnloadAsset(fullNameDict[bundleName], resName);
-    }
+        public void UnloadAsset(string sceneName, string bundleName, string resName)
+        {
+            sceneDict[sceneName].UnloadAsset(fullNameDict[bundleName], resName);
+        }
 
-    public void Release(string sceneName, string bundleName)
-    {
-        sceneDict[sceneName].Release(fullNameDict[bundleName]);
-    }
+        public void Release(string sceneName, string bundleName)
+        {
+            sceneDict[sceneName].Release(fullNameDict[bundleName]);
+        }
 
-    public void ReleaseAll(string sceneName, string bundleName)
-    {
-        sceneDict[sceneName].ReleaseAll(fullNameDict[bundleName]);
-    }
+        public void ReleaseAll(string sceneName, string bundleName)
+        {
+            sceneDict[sceneName].ReleaseAll(fullNameDict[bundleName]);
+        }
 
-    public void LogAllAssetNames(string sceneName, string bundleName)
-    {
-        sceneDict[sceneName].LogAllAssetNames(fullNameDict[bundleName]);
+        public void LogAllAssetNames(string sceneName, string bundleName)
+        {
+            sceneDict[sceneName].LogAllAssetNames(fullNameDict[bundleName]);
+        }
+        #endregion
     }
-    #endregion
 }

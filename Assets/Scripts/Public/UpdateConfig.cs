@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using LeoHui;
 
 [CreateAssetMenu(menuName = "LeoHui/UpdateConfig")]
 public class UpdateConfig : ScriptableObject

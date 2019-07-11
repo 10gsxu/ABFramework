@@ -2,90 +2,91 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public delegate void LoadFinish(string bundle);
-
-public class ABLoader {
-
-    private string bundleName;
-    private string bundlePath;
-
-    private LoadFinish loadFinish;
-
-    private AssetLoader assetLoader;
-
-    public ABLoader(string bundleName, LoadFinish loadFinish)
+namespace LeoHui
+{
+    public class ABLoader
     {
-        this.loadFinish = loadFinish;
-        this.bundleName = bundleName;
-    }
+        private string bundleName;
+        private string bundlePath;
 
-    /// <summary>
-    /// 同步加载
-    /// </summary>
-    public void SyncLoadAssetBundle()
-    {
-        this.bundlePath = PathTools.DataPath + bundleName + AppConst.ExtName;
-        AssetBundle assetBundle = AssetBundle.LoadFromFile(bundlePath);
-        assetLoader = new AssetLoader(assetBundle);
-        if (loadFinish != null)
-            loadFinish(bundleName);
-    }
+        private LoadFinish loadFinish;
 
-    /// <summary>
-    /// 异步加载
-    /// </summary>
-    public IEnumerator AsyncLoadAssetBundle()
-    {
-        this.bundlePath = PathTools.WwwDataPath + bundleName;
-        using (WWW www = new WWW(bundlePath))
+        private AssetLoader assetLoader;
+
+        public ABLoader(string bundleName, LoadFinish loadFinish)
         {
-            yield return www;
-            if(!string.IsNullOrEmpty(www.error))
+            this.loadFinish = loadFinish;
+            this.bundleName = bundleName;
+        }
+
+        /// <summary>
+        /// 同步加载
+        /// </summary>
+        public void SyncLoadAssetBundle()
+        {
+            this.bundlePath = PathTools.DataPath + bundleName + AppConst.ExtName;
+            AssetBundle assetBundle = AssetBundle.LoadFromFile(bundlePath);
+            assetLoader = new AssetLoader(assetBundle);
+            if (loadFinish != null)
+                loadFinish(bundleName);
+        }
+
+        /// <summary>
+        /// 异步加载
+        /// </summary>
+        public IEnumerator AsyncLoadAssetBundle()
+        {
+            this.bundlePath = PathTools.WwwDataPath + bundleName;
+            using (WWW www = new WWW(bundlePath))
             {
-                Debug.Log(bundleName + "加载失败，地址为 : " + bundlePath);
-            }
-            //加载完成
-            if (www.isDone)
-            {
-                assetLoader = new AssetLoader(www.assetBundle);
-                if (loadFinish != null)
-                    loadFinish(bundleName);
+                yield return www;
+                if (!string.IsNullOrEmpty(www.error))
+                {
+                    Debug.Log(bundleName + "加载失败，地址为 : " + bundlePath);
+                }
+                //加载完成
+                if (www.isDone)
+                {
+                    assetLoader = new AssetLoader(www.assetBundle);
+                    if (loadFinish != null)
+                        loadFinish(bundleName);
+                }
             }
         }
-    }
 
-    #region 下层提供功能
-    /// <summary>
-    /// 加载单个资源
-    /// </summary>
-    public T LoadAsset<T>(string resName) where T : UnityEngine.Object
-    {
-        return assetLoader.LoadAsset<T>(resName);
-    }
+        #region 下层提供功能
+        /// <summary>
+        /// 加载单个资源
+        /// </summary>
+        public T LoadAsset<T>(string resName) where T : UnityEngine.Object
+        {
+            return assetLoader.LoadAsset<T>(resName);
+        }
 
-    public void UnloadAsset(UnityEngine.Object asset)
-    {
-        assetLoader.UnloadAsset(asset);
-    }
+        public void UnloadAsset(UnityEngine.Object asset)
+        {
+            assetLoader.UnloadAsset(asset);
+        }
 
-    public void UnloadAsset(string resName)
-    {
-        assetLoader.UnloadAsset(resName);
-    }
+        public void UnloadAsset(string resName)
+        {
+            assetLoader.UnloadAsset(resName);
+        }
 
-    public void Dispose()
-    {
-        assetLoader.Dispose();
-    }
+        public void Dispose()
+        {
+            assetLoader.Dispose();
+        }
 
-    public void DisposeAll()
-    {
-        assetLoader.DisposeAll();
-    }
+        public void DisposeAll()
+        {
+            assetLoader.DisposeAll();
+        }
 
-    public void LogAllAssetNames()
-    {
-        assetLoader.LogAllAssetNames();
+        public void LogAllAssetNames()
+        {
+            assetLoader.LogAllAssetNames();
+        }
+        #endregion
     }
-    #endregion
 }

@@ -1,7 +1,10 @@
-﻿public enum AssetType
+﻿namespace LeoHui
 {
-    AssetBundle,
-    Resources,
-    AssetDatabase,
-    None
+    public enum AssetType
+    {
+        AssetBundle,
+        Resources,
+        AssetDatabase,
+        None
+    }
 }

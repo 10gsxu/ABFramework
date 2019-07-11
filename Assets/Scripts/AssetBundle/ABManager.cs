@@ -2,198 +2,199 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public delegate void LoadAssetBundleCallBack(string sceneName, string bundleName);
-
-//对所有Bundle包管理
-public class ABManager {
-
-	private string sceneName;
-    private Dictionary<string, ABRelationManager> abDict = new Dictionary<string, ABRelationManager>();
-
-    public ABManager(string sceneName)
+namespace LeoHui
+{
+    //对所有Bundle包管理
+    public class ABManager
     {
-		this.sceneName = sceneName;
-    }
+        private string sceneName;
+        private Dictionary<string, ABRelationManager> abDict = new Dictionary<string, ABRelationManager>();
 
-    public IEnumerator AsyncLoadAssetBundleDependences(string bundleName, string referName, LoadFinish loadFinish)
-    {
-        if(abDict.ContainsKey(bundleName))
+        public ABManager(string sceneName)
         {
-            abDict[bundleName].AddReference(referName);
+            this.sceneName = sceneName;
         }
-        else
+
+        public IEnumerator AsyncLoadAssetBundleDependences(string bundleName, string referName, LoadFinish loadFinish)
         {
+            if (abDict.ContainsKey(bundleName))
+            {
+                abDict[bundleName].AddReference(referName);
+            }
+            else
+            {
+                ABRelationManager abLoader = new ABRelationManager(bundleName, loadFinish);
+                abDict.Add(bundleName, abLoader);
+                abLoader.AddReference(referName);
+                yield return AsyncLoadAssetBundle(bundleName);
+            }
+        }
+
+        private void SyncLoadAssetBundleDependences(string bundleName, string referName)
+        {
+            if (abDict.ContainsKey(bundleName))
+            {
+                abDict[bundleName].AddReference(referName);
+            }
+            else
+            {
+                ABRelationManager abLoader = new ABRelationManager(bundleName, null);
+                abDict.Add(bundleName, abLoader);
+                abLoader.AddReference(referName);
+                abLoader.SyncLoadAssetBundle();
+            }
+        }
+
+        public void AsyncLoadAssetBundle(string bundleName, LoadFinish loadFinish, LoadAssetBundleCallBack callBack)
+        {
+            if (abDict.ContainsKey(bundleName))
+            {
+                if (loadFinish != null)
+                    loadFinish(bundleName);
+                return;
+            }
             ABRelationManager abLoader = new ABRelationManager(bundleName, loadFinish);
             abDict.Add(bundleName, abLoader);
-            abLoader.AddReference(referName);
-            yield return AsyncLoadAssetBundle(bundleName);
+            if (callBack != null)
+                callBack(sceneName, bundleName);
         }
-    }
 
-    private void SyncLoadAssetBundleDependences(string bundleName, string referName)
-    {
-        if(abDict.ContainsKey(bundleName))
+        /// <summary>
+        /// 加载AssetBundle,必须先加载Manifest
+        /// </summary>
+        public IEnumerator AsyncLoadAssetBundle(string bundleName)
         {
-            abDict[bundleName].AddReference(referName);
+            while (!ABManifestLoader.Instance.IsLoadFinish())
+                yield return null;
+            ABRelationManager abLoader = abDict[bundleName];
+            string[] dependence = ABManifestLoader.Instance.GetDependence(bundleName);
+            abLoader.SetDependence(dependence);
+            for (int i = 0; i < dependence.Length; ++i)
+            {
+                yield return AsyncLoadAssetBundleDependences(dependence[i], bundleName, abLoader.GetLoadFinish());
+            }
+            yield return abLoader.AsyncLoadAssetBundle();
         }
-        else
+
+        public void SyncLoadAssetBundle(string bundleName)
         {
+            if (abDict.ContainsKey(bundleName))
+                return;
             ABRelationManager abLoader = new ABRelationManager(bundleName, null);
             abDict.Add(bundleName, abLoader);
-            abLoader.AddReference(referName);
+            string[] dependence = ABManifestLoader.Instance.GetDependence(bundleName);
+            abLoader.SetDependence(dependence);
+            for (int i = 0; i < dependence.Length; ++i)
+            {
+                SyncLoadAssetBundleDependences(dependence[i], bundleName);
+            }
             abLoader.SyncLoadAssetBundle();
         }
-    }
 
-    public void AsyncLoadAssetBundle(string bundleName, LoadFinish loadFinish, LoadAssetBundleCallBack callBack)
-    {
-        if(abDict.ContainsKey(bundleName))
+        public void Release(string bundleName)
         {
-            if (loadFinish != null)
-                loadFinish(bundleName);
-            return;
-        }
-        ABRelationManager abLoader = new ABRelationManager(bundleName, loadFinish);
-        abDict.Add(bundleName, abLoader);
-        if (callBack != null)
-            callBack(sceneName, bundleName);
-    }
-
-    /// <summary>
-    /// 加载AssetBundle,必须先加载Manifest
-    /// </summary>
-    public IEnumerator AsyncLoadAssetBundle(string bundleName)
-    {
-        while (!ABManifestLoader.Instance.IsLoadFinish())
-            yield return null;
-        ABRelationManager abLoader = abDict[bundleName];
-        string[] dependence = ABManifestLoader.Instance.GetDependence(bundleName);
-        abLoader.SetDependence(dependence);
-        for (int i = 0; i < dependence.Length; ++i)
-        {
-            yield return AsyncLoadAssetBundleDependences(dependence[i], bundleName, abLoader.GetLoadFinish());
-        }
-        yield return abLoader.AsyncLoadAssetBundle();
-    }
-
-    public void SyncLoadAssetBundle(string bundleName)
-    {
-        if (abDict.ContainsKey(bundleName))
-            return;
-        ABRelationManager abLoader = new ABRelationManager(bundleName, null);
-        abDict.Add(bundleName, abLoader);
-        string[] dependence = ABManifestLoader.Instance.GetDependence(bundleName);
-        abLoader.SetDependence(dependence);
-        for (int i = 0; i < dependence.Length; ++i)
-        {
-            SyncLoadAssetBundleDependences(dependence[i], bundleName);
-        }
-        abLoader.SyncLoadAssetBundle();
-    }
-
-    public void Release(string bundleName)
-    {
-        if (!abDict.ContainsKey(bundleName))
-            return;
-        List<string> dependence = abDict[bundleName].GetDependence();
-        for(int i=0; i<dependence.Count; ++i)
-        {
-            ABRelationManager abLoader = abDict[dependence[i]];
-            abLoader.RemoveReference(bundleName);
-            //当没有引用时，释放
-            if (abLoader.GetReference().Count <= 0)
+            if (!abDict.ContainsKey(bundleName))
+                return;
+            List<string> dependence = abDict[bundleName].GetDependence();
+            for (int i = 0; i < dependence.Count; ++i)
             {
-                Dispose(dependence[i]);
+                ABRelationManager abLoader = abDict[dependence[i]];
+                abLoader.RemoveReference(bundleName);
+                //当没有引用时，释放
+                if (abLoader.GetReference().Count <= 0)
+                {
+                    Dispose(dependence[i]);
+                }
+            }
+            //当没有引用时，释放
+            if (abDict[bundleName].GetReference().Count <= 0)
+            {
+                Dispose(bundleName);
             }
         }
-        //当没有引用时，释放
-        if (abDict[bundleName].GetReference().Count <= 0)
-        {
-            Dispose(bundleName);
-        }
-    }
 
-    public void ReleaseAll(string bundleName)
-    {
-        if (!abDict.ContainsKey(bundleName))
-            return;
-        List<string> dependence = abDict[bundleName].GetDependence();
-        for (int i = 0; i < dependence.Count; ++i)
+        public void ReleaseAll(string bundleName)
         {
-            ABRelationManager abLoader = abDict[dependence[i]];
-            abLoader.RemoveReference(bundleName);
-            //当没有引用时，释放
-            if (abLoader.GetReference().Count <= 0)
+            if (!abDict.ContainsKey(bundleName))
+                return;
+            List<string> dependence = abDict[bundleName].GetDependence();
+            for (int i = 0; i < dependence.Count; ++i)
             {
-                DisposeAll(dependence[i]);
+                ABRelationManager abLoader = abDict[dependence[i]];
+                abLoader.RemoveReference(bundleName);
+                //当没有引用时，释放
+                if (abLoader.GetReference().Count <= 0)
+                {
+                    DisposeAll(dependence[i]);
+                }
+            }
+            //当没有引用时，释放
+            if (abDict[bundleName].GetReference().Count <= 0)
+            {
+                DisposeAll(bundleName);
             }
         }
-        //当没有引用时，释放
-        if (abDict[bundleName].GetReference().Count <= 0)
-        {
-            DisposeAll(bundleName);
-        }
-    }
 
-    #region 由下层提供API
-    public T LoadAsset<T>(string bundleName, string resName) where T : UnityEngine.Object
-    {
-        if (!abDict.ContainsKey(bundleName))
+        #region 由下层提供API
+        public T LoadAsset<T>(string bundleName, string resName) where T : UnityEngine.Object
         {
-            Debug.Log(bundleName + "不存在");
-            return null;
+            if (!abDict.ContainsKey(bundleName))
+            {
+                Debug.Log(bundleName + "不存在");
+                return null;
+            }
+            return abDict[bundleName].LoadAsset<T>(resName);
         }
-        return abDict[bundleName].LoadAsset<T>(resName);
-    }
 
-    public void UnloadAsset(string bundleName, string resName)
-    {
-        if (!abDict.ContainsKey(bundleName))
+        public void UnloadAsset(string bundleName, string resName)
         {
-            Debug.Log(bundleName + "不存在");
-            return;
+            if (!abDict.ContainsKey(bundleName))
+            {
+                Debug.Log(bundleName + "不存在");
+                return;
+            }
+            abDict[bundleName].UnloadAsset(resName);
         }
-        abDict[bundleName].UnloadAsset(resName);
-    }
 
-    public void UnloadAsset(string bundleName, UnityEngine.Object asset)
-    {
-        if (!abDict.ContainsKey(bundleName))
+        public void UnloadAsset(string bundleName, UnityEngine.Object asset)
         {
-            Debug.Log(bundleName + "不存在");
-            return;
+            if (!abDict.ContainsKey(bundleName))
+            {
+                Debug.Log(bundleName + "不存在");
+                return;
+            }
+            abDict[bundleName].UnloadAsset(asset);
         }
-        abDict[bundleName].UnloadAsset(asset);
-    }
 
-    private void Dispose(string bundleName)
-    {
-        if (!abDict.ContainsKey(bundleName))
+        private void Dispose(string bundleName)
         {
-            Debug.Log(bundleName + "不存在");
-            return;
+            if (!abDict.ContainsKey(bundleName))
+            {
+                Debug.Log(bundleName + "不存在");
+                return;
+            }
+            abDict[bundleName].Dispose();
         }
-        abDict[bundleName].Dispose();
-    }
 
-    private void DisposeAll(string bundleName)
-    {
-        if (!abDict.ContainsKey(bundleName))
+        private void DisposeAll(string bundleName)
         {
-            Debug.Log(bundleName + "不存在");
-            return;
+            if (!abDict.ContainsKey(bundleName))
+            {
+                Debug.Log(bundleName + "不存在");
+                return;
+            }
+            abDict[bundleName].DisposeAll();
         }
-        abDict[bundleName].DisposeAll();
-    }
 
-    public void LogAllAssetNames(string bundleName)
-    {
-        if(!abDict.ContainsKey(bundleName))
+        public void LogAllAssetNames(string bundleName)
         {
-            Debug.Log("abDict 不存在 " + bundleName);
-            return;
+            if (!abDict.ContainsKey(bundleName))
+            {
+                Debug.Log("abDict 不存在 " + bundleName);
+                return;
+            }
+            abDict[bundleName].LogAllAssetNames();
         }
-        abDict[bundleName].LogAllAssetNames();
+        #endregion
     }
-    #endregion
 }
