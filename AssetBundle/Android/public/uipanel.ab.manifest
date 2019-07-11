@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 2065598091
+CRC: 285872724
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: eb6ca3092b76b0b502317203b8106086
+    Hash: 4faaae1d4e689fe0011b99079d3b3384
   TypeTreeHash:
     serializedVersion: 2
     Hash: d920131cb2a0a114ad58a285cd8ab234
@@ -55,5 +55,4 @@ Assets:
 - Assets/ABRes/Public/UIPanel/ShopItem.prefab
 Dependencies:
 - /Users/leohui/Desktop/UnityProject/ABFramework/AssetBundle/Android/public/car.ab
-- /Users/leohui/Desktop/UnityProject/ABFramework/AssetBundle/Android/public/font.ab
 - /Users/leohui/Desktop/UnityProject/ABFramework/AssetBundle/Android/public/sprite.ab

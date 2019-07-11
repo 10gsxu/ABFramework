@@ -25,6 +25,7 @@ public class AssetBundleEditor : EditorWindow
     private List<string> fileList = new List<string>();
     private List<AssetBundleItem> abItemList = new List<AssetBundleItem>();
     private bool isChange = false;
+    private ResourceData resourceData;
     private string resourceFile = "resource.csv";
 
     void OnEnable()
@@ -323,7 +324,8 @@ public class AssetBundleEditor : EditorWindow
     private void GenerateDataFile()
     {
         string resourceFilePath = GetAssetBundlePath(curBuildTarget) + resourceFile;
-        EditorResourceData.Instance.InitDataFromFile(resourceFilePath);
+        resourceData = new ResourceData();
+        resourceData.InitDataFromFile(resourceFilePath);
         abItemList.Clear();
         isChange = false;
         string dirPath = GetAssetBundlePath(curBuildTarget);
@@ -354,7 +356,7 @@ public class AssetBundleEditor : EditorWindow
         item.bundleFullName = fileName;
         item.size = UtilTools.getFileSize(filePath);
         item.md5 = UtilTools.md5file(filePath);
-        string oldMd5 = EditorResourceData.Instance.GetMd5(item.bundleName);
+        string oldMd5 = resourceData.GetMd5ByBundleName(item.bundleName);
         isChange = oldMd5 != item.md5;
         abItemList.Add(item);
     }
@@ -375,7 +377,7 @@ public class AssetBundleEditor : EditorWindow
             item.bundleFullName = fileName.Replace(rootPath, "");
             item.size = UtilTools.getFileSize(fileName);
             item.md5 = UtilTools.md5file(fileName);
-            string oldMd5 = EditorResourceData.Instance.GetMd5(item.bundleName);
+            string oldMd5 = resourceData.GetMd5ByBundleName(item.bundleName);
             isChange = oldMd5 != item.md5;
             abItemList.Add(item);
         }
@@ -383,29 +385,29 @@ public class AssetBundleEditor : EditorWindow
 
     private void GenerateResourceFile()
     {
-        StringBuilder csvFileStr = new StringBuilder();
-        csvFileStr.Append("Id,BundleName,BundleFullName,Size,Md5\r");
+        StringBuilder sb = new StringBuilder();
+        sb.Append("Id,BundleName,BundleFullName,Size,Md5\r");
         for (int i = 0; i < abItemList.Count; ++i)
         {
             AssetBundleItem item = abItemList[i];
-            csvFileStr.Append((i + 1).ToString());
-            csvFileStr.Append(",");
-            csvFileStr.Append(item.bundleName);
-            csvFileStr.Append(",");
-            csvFileStr.Append(item.bundleFullName);
-            csvFileStr.Append(",");
-            csvFileStr.Append(item.size.ToString());
-            csvFileStr.Append(",");
-            csvFileStr.Append(item.md5);
+            sb.Append((i + 1).ToString());
+            sb.Append(",");
+            sb.Append(item.bundleName);
+            sb.Append(",");
+            sb.Append(item.bundleFullName);
+            sb.Append(",");
+            sb.Append(item.size.ToString());
+            sb.Append(",");
+            sb.Append(item.md5);
             if (i < abItemList.Count - 1)
-                csvFileStr.Append('\r');
+                sb.Append('\r');
         }
         
         string resourceFilePath = GetAssetBundlePath(curBuildTarget) + resourceFile;
         FileStream fs = File.Open(resourceFilePath, FileMode.Create);
         Encoding utf8WithoutBom = new UTF8Encoding(false);
         StreamWriter sw = new StreamWriter(fs, utf8WithoutBom);
-        sw.Write(csvFileStr);
+        sw.Write(sb.ToString());
         sw.Close();
         fs.Close();
     }
