@@ -68,8 +68,6 @@ public class FileTools
     /// <summary>
     /// 写文件
     /// </summary>
-    /// <param name="filePath"></param>
-    /// <param name="fileText"></param>
     public static void WriteFile(string filePath, string fileText)
     {
         FileStream fs = new FileStream(filePath, FileMode.OpenOrCreate, FileAccess.Write);
@@ -83,35 +81,11 @@ public class FileTools
     /// <summary>
     /// 读取文件内容  仅读取第一行
     /// </summary>
-    /// <returns>The file.</returns>
-    /// <param name="path">Path.</param>
-    /// <param name="name">Name.</param>
-    public static string ReadFile(string fileName, bool onlyreadline = false)
+    public static string ReadFile(string fileName)
     {
-        string fileContent = "";
-        StreamReader sr = null;
-        try
-        {
-            sr = File.OpenText(RootPath + fileName);
-        }
-        catch (Exception e)
-        {
-            Debug.Log(e.Message);
-            return null;
-        }
-        if (onlyreadline)
-        {
-            while ((fileContent = sr.ReadLine()) != null)
-            {
-                break;
-            }
-        }
-        else
-        {
-            fileContent = sr.ReadToEnd();
-        }
+        StreamReader sr = File.OpenText(RootPath + fileName);
+        string fileContent = sr.ReadToEnd();
         sr.Close();
-        sr.Dispose();
         return fileContent;
     }
 
@@ -146,8 +120,8 @@ public class FileTools
             Directory.CreateDirectory(to);
 
         ///* 子文件夹*/
-        foreach (string sub in Directory.GetDirectories(from))
-            CopyFolder(sub, to + Path.GetFileName(sub) + "/");
+        foreach (string dir in Directory.GetDirectories(from))
+            CopyFolder(dir, to + Path.GetFileName(dir) + "/");
 
         ///* 文件*/
         foreach (string file in Directory.GetFiles(from))
