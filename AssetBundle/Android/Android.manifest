@@ -1,5 +1,5 @@
 ManifestFileVersion: 0
-CRC: 251332148
+CRC: 3265278780
 AssetBundleManifest:
   AssetBundleInfos:
     Info_0:
@@ -19,6 +19,11 @@ AssetBundleManifest:
       Dependencies: {}
     Info_5:
       Name: public/uipanel.ab
+      Dependencies:
+        Dependency_0: public/car.ab
+        Dependency_1: public/sprite.ab
+    Info_6:
+      Name: public/uiitem.ab
       Dependencies:
         Dependency_0: public/car.ab
         Dependency_1: public/sprite.ab

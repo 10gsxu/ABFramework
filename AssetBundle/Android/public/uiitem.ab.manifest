@@ -1,0 +1,36 @@
+ManifestFileVersion: 0
+CRC: 157733229
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 23a83c9b5a89c991fa7c4cd3bb717583
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 78d4a632f5614325a4a22aff3cafccfd
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: 1392445389, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+- Class: 114
+  Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+- Class: 114
+  Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+- Class: 115
+  Script: {instanceID: 0}
+- Class: 213
+  Script: {instanceID: 0}
+- Class: 222
+  Script: {instanceID: 0}
+- Class: 224
+  Script: {instanceID: 0}
+Assets:
+- Assets/ABRes/Public/UIItem/CarItem.prefab
+- Assets/ABRes/Public/UIItem/SeatItem.prefab
+- Assets/ABRes/Public/UIItem/ShopItem.prefab
+Dependencies:
+- /Users/leohui/Desktop/UnityProject/ABFramework/AssetBundle/Android/public/car.ab
+- /Users/leohui/Desktop/UnityProject/ABFramework/AssetBundle/Android/public/sprite.ab
