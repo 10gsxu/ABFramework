@@ -17,6 +17,16 @@ public class UpdateConfig : ScriptableObject
         }
     }
 
-    public string serverUrl = "https://";
+    [Header("资源地址")]
+    public string serverUrl = "https://xiaochu.gyatechnology.com:3993/cardrift/";
+    [Header("资源类型")]
     public AssetType assetType = AssetType.None;
+    [Header("启动更新模式")]
+    public bool UpdateMode = true;
+    [Header("游戏帧频")]
+    public int FrameRate = 30;
+    [Header("游戏名称")]
+    public string AppName = "CarDrift";
+    [Header("AssetBundle后缀")]
+    public string ExtName = "ab";
 }

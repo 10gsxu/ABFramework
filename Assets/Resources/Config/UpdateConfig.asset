@@ -12,5 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f64000dcbfca4371b6399416dc04b87, type: 3}
   m_Name: UpdateConfig
   m_EditorClassIdentifier: 
-  serverUrl: https://
+  serverUrl: https://xiaochu.gyatechnology.com:3993/cardrift/
   assetType: 0
+  UpdateMode: 1
+  FrameRate: 30
+  AppName: CarDrift
+  ExtName: ab

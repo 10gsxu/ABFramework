@@ -230,7 +230,7 @@ namespace LeoHui
             }
             else
             {
-                tmpImporterObj.assetBundleVariant = "ab";
+                tmpImporterObj.assetBundleVariant = UpdateConfig.Instance.ExtName;
             }
         }
 

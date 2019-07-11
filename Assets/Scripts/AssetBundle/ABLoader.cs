@@ -24,7 +24,7 @@ namespace LeoHui
         /// </summary>
         public void SyncLoadAssetBundle()
         {
-            this.bundlePath = PathTools.DataPath + bundleName + AppConst.ExtName;
+            this.bundlePath = PathTools.DataPath + bundleName + "." + UpdateConfig.Instance.ExtName;
             AssetBundle assetBundle = AssetBundle.LoadFromFile(bundlePath);
             assetLoader = new AssetLoader(assetBundle);
             if (loadFinish != null)
@@ -36,7 +36,7 @@ namespace LeoHui
         /// </summary>
         public IEnumerator AsyncLoadAssetBundle()
         {
-            this.bundlePath = PathTools.WwwDataPath + bundleName + AppConst.ExtName;
+            this.bundlePath = PathTools.WwwDataPath + bundleName + "." + UpdateConfig.Instance.ExtName;
             using (WWW www = new WWW(bundlePath))
             {
                 yield return www;

@@ -29,8 +29,6 @@ public class UpdateManager : MonoBehaviour
 	public Action<int, int> decompressUpdate = null;
 	public Action<long, long> sizeUpdate = null;
 
-    public string serverUrl= "https://xiaochu.gyatechnology.com:3993/cardrift/";
-
     void Awake()
     {
         Instance = this;
@@ -48,7 +46,7 @@ public class UpdateManager : MonoBehaviour
     {
         CheckExtractResource(); //释放资源
         Screen.sleepTimeout = SleepTimeout.NeverSleep;
-        Application.targetFrameRate = AppConst.AppFrame;
+        Application.targetFrameRate = UpdateConfig.Instance.FrameRate;
     }
 
     /// <summary>
@@ -128,7 +126,7 @@ public class UpdateManager : MonoBehaviour
     /// </summary>
     void CheckUpdateResource()
     {
-        if (!AppConst.UpdateMode)
+        if (!UpdateConfig.Instance.UpdateMode)
         {
             EndUpdateResource();
             return;
@@ -138,7 +136,7 @@ public class UpdateManager : MonoBehaviour
 
     IEnumerator CheckResourceFile()
     {
-        WWW www = new WWW(serverUrl + resourceFile);
+        WWW www = new WWW(UpdateConfig.Instance.serverUrl + resourceFile);
         yield return www;
         if (!string.IsNullOrEmpty(www.error))
         {
@@ -203,7 +201,7 @@ public class UpdateManager : MonoBehaviour
         string bundleFullName = remoteResourceData.GetBundleFullNameByBundleName(bundleName);
         //先使用中间文件
         string localFilePath = PathTools.DataPath + bundleFullName + ".temp";
-        string remoteFilePath = serverUrl + bundleFullName;
+        string remoteFilePath = UpdateConfig.Instance.serverUrl + bundleFullName;
         Debug.Log(remoteFilePath);
         float progress = 0f;
 

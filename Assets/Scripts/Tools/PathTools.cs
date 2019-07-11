@@ -21,11 +21,11 @@ namespace LeoHui
             {
                 if (Application.isMobilePlatform)
                 {
-                    return Application.persistentDataPath + "/" + AppConst.AppName + "/";
+                    return Application.persistentDataPath + "/" + UpdateConfig.Instance.AppName + "/";
                 }
                 else
                 {
-                    return Application.dataPath.Replace("Assets", "") + AppConst.AppName + "/";
+                    return Application.dataPath.Replace("Assets", "") + UpdateConfig.Instance.AppName + "/";
                 }
             }
         }
