@@ -17,9 +17,6 @@ public class AssetBundleEditor : EditorWindow
         window.Show();
     }
 
-    private string curVersionName = "1.0.0";
-    private int curVersionCode = 1;
-
     private AnimBool step1flag;
     private AnimBool step2flag;
     private AnimBool step3flag;
@@ -28,7 +25,6 @@ public class AssetBundleEditor : EditorWindow
     private List<string> fileList = new List<string>();
     private List<AssetBundleItem> abItemList = new List<AssetBundleItem>();
     private bool isChange = false;
-    private string versionFile = "version.txt";
     private string resourceFile = "resource.csv";
 
     void OnEnable()
@@ -44,11 +40,6 @@ public class AssetBundleEditor : EditorWindow
 
     void OnGUI()
     {
-        ReadResVer(ref curVersionCode, ref curVersionName);
-        GUILayout.Label("当前版本信息", EditorStyles.whiteLargeLabel);
-        curVersionName = EditorGUILayout.TextField("版本名", curVersionName);
-        curVersionCode = EditorGUILayout.IntField("版本号", curVersionCode);
-        EditorGUILayout.Space();
         step1flag.target = EditorGUILayout.ToggleLeft("步骤1 - 设置AssetBundleName", step1flag.target);
         if (EditorGUILayout.BeginFadeGroup(step1flag.faded))
         {
@@ -344,7 +335,6 @@ public class AssetBundleEditor : EditorWindow
         }
 
         GenerateResourceFile();
-        GenerateVersionFile();
     }
 
     struct AssetBundleItem
@@ -419,63 +409,5 @@ public class AssetBundleEditor : EditorWindow
         sw.Close();
         fs.Close();
     }
-
-    private void GenerateVersionFile()
-    {
-        int resVerCode = 0;
-        string resVerName = "1.0.0";
-
-        ReadResVer(ref resVerCode, ref resVerName);
-
-        if (isChange)
-        {
-            ++resVerCode;
-
-            string[] verNames = resVerName.Split('.');
-            int[] verValues = new int[3];
-            for(int i=0; i<3; ++i)
-            {
-                verValues[i] = int.Parse(verNames[i]);
-            }
-            int verNamesValue = verValues[0] * 100 + verValues[1] * 10 + verValues[2];
-            ++verNamesValue;
-            verValues[0] = verNamesValue / 100;
-            verNamesValue -= verValues[0] * 100;
-            verValues[1] = verNamesValue / 10;
-            verNamesValue -= verValues[1] * 10;
-            verValues[2] = verNamesValue;
-            resVerName = verValues[0] + "." + verValues[1] + "." + verValues[2];
-        }
-
-        WriteResVer(resVerCode, resVerName);
-    }
-
-    public void ReadResVer(ref int resVerCode, ref string resVerName)
-    {
-        string versionFilePath = GetAssetBundlePath(curBuildTarget) + versionFile;
-        if (File.Exists(versionFilePath))
-        {
-            FileStream fs = new FileStream(versionFilePath, FileMode.Open, FileAccess.Read);
-            StreamReader sr = new StreamReader(fs, Encoding.UTF8);
-            resVerCode = int.Parse(sr.ReadLine());
-            resVerName = sr.ReadLine();
-            sr.Close();
-            fs.Close();
-        }
-    }
-
-    public void WriteResVer(int resVerCode, string resVerName)
-    {
-        string versionFilePath = GetAssetBundlePath(curBuildTarget) + versionFile;
-
-        FileStream assetFile = File.Open(versionFilePath, FileMode.Create);
-        Encoding utf8WithoutBom = new UTF8Encoding(false);
-        StreamWriter sw = new StreamWriter(assetFile, utf8WithoutBom);
-        sw.WriteLine(resVerCode.ToString());
-        sw.WriteLine(resVerName);
-        sw.Close();
-        assetFile.Close();
-    }
-
     #endregion
 }

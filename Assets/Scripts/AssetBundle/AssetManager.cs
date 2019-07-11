@@ -21,8 +21,8 @@ namespace LeoHui
         public void Init()
         {
             //第一步 加载 ABManifest
-            StartCoroutine(ABManifestLoader.Instance.AsyncLoadManifest());
-            //ABManifestLoader.Instance.SyncLoadManifest();
+            //StartCoroutine(ABManifestLoader.Instance.AsyncLoadManifest());
+            ABManifestLoader.Instance.SyncLoadManifest();
             sceneManager = new ABSceneManager();
             if (Application.isMobilePlatform)
             {

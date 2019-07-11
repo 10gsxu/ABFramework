@@ -21,16 +21,16 @@ public class LoadingPanel : MonoBehaviour
     {
         AssetManager.Instance.Init();
         //同步加载
-        //AssetManager.Instance.SyncLoadAssetBundle("Public", "Car");
-        //iconImage.sprite = AssetManager.Instance.LoadAsset<Sprite>("Public", "Car", "1");
+        AssetManager.Instance.SyncLoadAssetBundle("Public", "Car");
+        iconImage.sprite = AssetManager.Instance.LoadAsset<Sprite>("Public", "Car", "1");
         //异步加载
-        AssetManager.Instance.AsyncLoadAssetBundle("Public", "Car", LoadFinish);
+        //AssetManager.Instance.AsyncLoadAssetBundle("Public", "Car", LoadFinish);
 
         //同步加载
-        //AssetManager.Instance.SyncLoadAssetBundle("Public", "UIPanel");
-        //Transform itemTran = PoolManager.Instance.Spawn("Public", "UIPanel", "CarItem");
+        AssetManager.Instance.SyncLoadAssetBundle("Public", "UIPanel");
+        Transform itemTran = PoolManager.Instance.Spawn("Public", "UIPanel", "CarItem");
         //异步加载
-        AssetManager.Instance.AsyncLoadAssetBundle("Public", "UIPanel", LoadFinish);
+        //AssetManager.Instance.AsyncLoadAssetBundle("Public", "UIPanel", LoadFinish);
     }
 
     private void LoadFinish(string bundleName)

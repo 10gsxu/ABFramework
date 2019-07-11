@@ -10,7 +10,6 @@ using System.Net;
 public class UpdateManager : MonoBehaviour
 {
     public static UpdateManager Instance;
-    private string versionFile = "version.txt";
     private string resourceFile = "resource.csv";
     private ResourceData localResourceData;
     private ResourceData remoteResourceData;
@@ -57,8 +56,7 @@ public class UpdateManager : MonoBehaviour
     /// </summary>
     public void CheckExtractResource()
     {
-        bool isExists = Directory.Exists(PathTools.DataPath)
-           && File.Exists(PathTools.DataPath + versionFile) && File.Exists(PathTools.DataPath + resourceFile);
+        bool isExists = Directory.Exists(PathTools.DataPath) && File.Exists(PathTools.DataPath + resourceFile);
         if (isExists)
         {
             CheckUpdateResource();
@@ -73,7 +71,6 @@ public class UpdateManager : MonoBehaviour
             Directory.Delete(PathTools.DataPath, true);
         Directory.CreateDirectory(PathTools.DataPath);
 
-        yield return StartCoroutine(OnExtractFile(versionFile));
         yield return StartCoroutine(OnExtractFile(resourceFile));
 
         localResourceData = new ResourceData();
@@ -126,34 +123,6 @@ public class UpdateManager : MonoBehaviour
         }
     }
 
-    private void ReadVersionFile(ref int localVersionCode, ref string localVersionName)
-    {
-        string filePath = PathTools.DataPath + versionFile;
-        if (File.Exists(filePath))
-        {
-            FileStream fs = new FileStream(filePath, FileMode.Open, FileAccess.Read);
-            StreamReader sr = new StreamReader(fs, Encoding.UTF8);
-            localVersionCode = int.Parse(sr.ReadLine());
-            localVersionName = sr.ReadLine();
-            sr.Close();
-            fs.Close();
-        }
-    }
-
-    private void WriteVersionFile(int versionCode, string versionName)
-    {
-        string filePath = PathTools.DataPath + versionFile;
-        if (File.Exists(filePath))
-        {
-            FileStream fs = new FileStream(filePath, FileMode.Create);
-            StreamWriter sw = new StreamWriter(fs, Encoding.UTF8);
-            sw.WriteLine(versionCode.ToString());
-            sw.WriteLine(versionName);
-            sw.Close();
-            fs.Close();
-        }
-    }
-
     /// <summary>
     /// 启动更新下载
     /// </summary>
@@ -164,37 +133,7 @@ public class UpdateManager : MonoBehaviour
             EndUpdateResource();
             return;
         }
-        StartCoroutine(CheckVersionFile());
-    }
-
-    IEnumerator CheckVersionFile()
-    {
-        WWW www = new WWW(serverUrl + versionFile);
-        yield return www;
-        if(!string.IsNullOrEmpty(www.error))
-        {
-            Debug.Log(www.error);
-            EndUpdateResource();
-            yield break;
-        }
-        string result = www.text;
-        string[] dataArr = result.Split('\n');
-        remoteVersionCode = int.Parse(dataArr[0]);
-        remoteVersionName = dataArr[1];
-
-        int localVersionCode = 1;
-        string localVersionName = "1.0.0";
-        ReadVersionFile(ref localVersionCode, ref localVersionName);
-
-        if(remoteVersionCode > localVersionCode)
-        {
-            StartCoroutine(CheckResourceFile());
-        }
-        else
-        {
-            Debug.Log("已经是最新版本了");
-            EndUpdateResource();
-        }
+        StartCoroutine(CheckResourceFile());
     }
 
     IEnumerator CheckResourceFile()
@@ -212,7 +151,6 @@ public class UpdateManager : MonoBehaviour
         remoteResourceData.InitData(remoteResult);
         localResourceData = new ResourceData();
         localResourceData.InitDataFromFile(PathTools.DataPath + resourceFile);
-        Debug.Log(localResourceData.GetDataRow());
 
         downloadList.Clear();
         int dataRow = remoteResourceData.GetDataRow();
@@ -221,7 +159,7 @@ public class UpdateManager : MonoBehaviour
             string bundleName = remoteResourceData.GetBundleName(i);
             string remoteMd5 = remoteResourceData.GetMd5(i);
             string localMd5 = localResourceData.GetMd5ByBundleName(bundleName);
-            Debug.Log(remoteMd5 + " : " + localMd5);
+            //Debug.Log(remoteMd5 + " : " + localMd5);
             if(remoteMd5.CompareTo(localMd5) != 0)
             {
                 downloadList.Add(bundleName);
@@ -231,7 +169,6 @@ public class UpdateManager : MonoBehaviour
         downloadFileIndex = 0;
         downloadRetryCount = 0;
         totalFileCount = downloadList.Count;
-        Debug.Log(totalFileCount);
         finishFileSize = 0;
         GetTotalFileSize();
         DownloadNextFile();
@@ -248,7 +185,7 @@ public class UpdateManager : MonoBehaviour
 
     void DownloadNextFile()
     {
-        Debug.Log(downloadFileIndex + " : " + totalFileCount);
+        //Debug.Log(downloadFileIndex + " : " + totalFileCount);
         //下载完成
 		if (downloadFileIndex >= totalFileCount)
         {
@@ -364,6 +301,7 @@ public class UpdateManager : MonoBehaviour
         if(IsFileValid())
         {
             ChangeFileToUse();
+            WriteResourceFile();
         }
         EndUpdateResource();
     }
@@ -400,15 +338,15 @@ public class UpdateManager : MonoBehaviour
             }
             File.Move(inPath, outPath);
         }
+    }
 
-        //同步服务器的文件信息
+    void WriteResourceFile()
+    {
         FileStream fs = File.Open(PathTools.DataPath + resourceFile, FileMode.Create);
         StreamWriter sw = new StreamWriter(fs, Encoding.UTF8);
         sw.Write(remoteResult);
         sw.Close();
         fs.Close();
-
-        WriteVersionFile(remoteVersionCode, remoteVersionName);
     }
 
     void EndUpdateResource()
