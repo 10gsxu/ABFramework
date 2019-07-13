@@ -36,26 +36,61 @@ public class IOTools
     }
 
     /// <summary>
+    /// Creates the folder.
+    /// </summary>
+    /// <param name="folderPath">Folder path.</param>
+    public static void CreateFolder(string folderPath)
+    {
+        Directory.CreateDirectory(folderPath);
+    }
+
+    /// <summary>
+    /// Ises the folder exists.
+    /// </summary>
+    /// <returns><c>true</c>, if folder exists was ised, <c>false</c> otherwise.</returns>
+    /// <param name="folderPath">Folder path.</param>
+    public static bool IsFolderExists(string folderPath)
+    {
+        return Directory.Exists(folderPath);
+    }
+
+    /// <summary>
     /// 复制文件夹
     /// </summary>
     /// <param name="from">From.</param>
     /// <param name="to">To.</param>
-    public static void CopyFolder(string from, string to)
+    public static void CopyFolder(string sourceFolderName, string destFolderName)
     {
-        if (!Directory.Exists(to))
-            Directory.CreateDirectory(to);
+        if (!Directory.Exists(destFolderName))
+            Directory.CreateDirectory(destFolderName);
 
         ///* 子文件夹*/
-        foreach (string dir in Directory.GetDirectories(from))
-            CopyFolder(dir, to + Path.GetFileName(dir) + "/");
+        foreach (string dir in Directory.GetDirectories(sourceFolderName))
+            CopyFolder(dir, destFolderName + Path.GetFileName(dir) + "/");
 
         ///* 文件*/
-        foreach (string file in Directory.GetFiles(from))
-            CopyFile(file, to + Path.GetFileName(file), true);
+        foreach (string file in Directory.GetFiles(sourceFolderName))
+            CopyFile(file, destFolderName + Path.GetFileName(file), true);
     }
 
-    public static void CopyFile(string from, string to, bool overWrite)
+    /// <summary>
+    /// 复制文件
+    /// </summary>
+    /// <param name="sourceFileName">Source file name.</param>
+    /// <param name="destFileName">Destination file name.</param>
+    /// <param name="overwrite">If set to <c>true</c> overwrite.</param>
+    public static void CopyFile(string sourceFileName, string destFileName, bool overwrite)
     {
-        File.Copy(from, to, overWrite);
+        File.Copy(sourceFileName, destFileName, overwrite);
+    }
+
+    /// <summary>
+    /// 移动文件，从一个路径到另一个路径，或者重命名
+    /// </summary>
+    /// <param name="sourceFileName">Source file name.</param>
+    /// <param name="destFileName">Destination file name.</param>
+    public static void MoveFile(string sourceFileName, string destFileName)
+    {
+        File.Move(sourceFileName, destFileName);
     }
 }
