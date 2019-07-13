@@ -410,7 +410,7 @@ namespace LeoHui
             }
 
             string resourceFilePath = GetAssetBundlePath(curBuildTarget) + resourceFile;
-            FileTools.WriteFile(resourceFilePath, sb.ToString());
+            IOTools.WriteFile(resourceFilePath, sb.ToString());
         }
         #endregion
     }

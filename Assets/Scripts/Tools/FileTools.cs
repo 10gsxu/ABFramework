@@ -4,7 +4,7 @@ using System.IO;
 using System;
 
 /// <summary>
-/// 文件操作类
+/// 文件操作类，注意本类只针对RootPath路径下的文件操作
 /// </summary>
 public class FileTools
 {
@@ -44,38 +44,25 @@ public class FileTools
     }
 
     /// <summary>
-    /// 写文件操作
-    /// 指定路径文件不存在会被创建
+    /// 写文件，如果文件不存在，则直接创建一个新文件
+    /// Encode in UTF-8 without BOM
     /// </summary>
-    /// <param name="path">文件路径（包含Application.persistentDataPath）.</param>
-    /// <param name="name">文件名.</param>
-    /// <param name="info">写入内容.</param>
-    public static void CreateOrWriteFile(string fileName, string info)
+    /// <param name="fileName">文件名称，注意不带路径</param>
+    /// <param name="fileText">文件内容</param>
+    public static void WriteFile(string fileName, string fileText)
     {
-        FileStream fs = new FileStream(RootPath + fileName, FileMode.Create, FileAccess.Write);
-        fs.Close();
-        StreamWriter sw = new StreamWriter(RootPath + fileName);
-        sw.WriteLine(info);
-        sw.Close();
-        sw.Dispose();
-    }
-
-    /// <summary>
-    /// 写文件
-    /// </summary>
-    public static void WriteFile(string filePath, string fileText)
-    {
-        FileStream fs = new FileStream(filePath, FileMode.OpenOrCreate, FileAccess.Write);
-        Encoding utf8WithoutBom = new UTF8Encoding(false);
-        StreamWriter sw = new StreamWriter(fs, utf8WithoutBom);
+        FileStream fs = new FileStream(RootPath + fileName, FileMode.OpenOrCreate, FileAccess.Write);
+        Encoding UTF8WithoutBom = new UTF8Encoding(false);
+        StreamWriter sw = new StreamWriter(fs, UTF8WithoutBom);
         sw.Write(fileText);
         sw.Close();
         fs.Close();
     }
 
     /// <summary>
-    /// 读取文件内容  仅读取第一行
+    /// 读文件
     /// </summary>
+    /// <param name="fileName">文件名称，注意不带路径</param>
     public static string ReadFile(string fileName)
     {
         StreamReader sr = File.OpenText(RootPath + fileName);
@@ -84,48 +71,40 @@ public class FileTools
         return fileContent;
     }
 
+    /// <summary>
+    /// 判断文件是否存在
+    /// </summary>
+    /// <param name="fileName">文件名称，注意不带路径</param>
     public static bool IsFileExists(string fileName)
     {
         return File.Exists(RootPath + fileName);
     }
 
+    /// <summary>
+    /// 删除文件
+    /// </summary>
+    /// <param name="fileName">文件名称，注意不带路径</param>
     public static void DelectFile(string fileName)
     {
         File.Delete(RootPath + fileName);
     }
 
+    /// <summary>
+    /// 判断文件夹是否存在
+    /// </summary>
+    /// <param name="fileName">文件夹名称，注意不带路径</param>
     public static bool IsFolderExists(string folderName)
     {
         return Directory.Exists(RootPath + folderName);
     }
 
+    /// <summary>
+    /// 创建文件夹
+    /// </summary>
+    /// <param name="fileName">文件夹名称，注意不带路径</param>
     public static void CreateFolder(string folderName)
     {
         Directory.CreateDirectory(RootPath + folderName);
-    }
-
-    /// <summary>
-    /// 复制文件夹
-    /// </summary>
-    /// <param name="from">From.</param>
-    /// <param name="to">To.</param>
-    public static void CopyFolder(string from, string to)
-    {
-        if (!Directory.Exists(to))
-            Directory.CreateDirectory(to);
-
-        ///* 子文件夹*/
-        foreach (string dir in Directory.GetDirectories(from))
-            CopyFolder(dir, to + Path.GetFileName(dir) + "/");
-
-        ///* 文件*/
-        foreach (string file in Directory.GetFiles(from))
-            File.Copy(file, to + Path.GetFileName(file), true);
-    }
-
-    public static void CopyFile(string from, string to, bool overWrite)
-    {
-        File.Copy(from, to, overWrite);
     }
 
 }

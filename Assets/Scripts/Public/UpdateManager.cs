@@ -340,7 +340,7 @@ public class UpdateManager : MonoBehaviour
 
     void WriteResourceFile()
     {
-        FileTools.WriteFile(PathTools.DataPath + resourceFile, remoteResult);
+        IOTools.WriteFile(PathTools.DataPath + resourceFile, remoteResult);
     }
 
     void EndUpdateResource()

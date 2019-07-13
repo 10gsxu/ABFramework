@@ -46,7 +46,7 @@ public class IJsonData<T>: SingletonBase<T> where T : new()
 
             if (IsCreateAnotherData)
             {
-                FileTools.CreateOrWriteFile(DataFileName, IsEncryptData ? DesCode.EncryptDES(jsonStr, DesCode.PassWord) : jsonStr);
+                FileTools.WriteFile(DataFileName, IsEncryptData ? DesCode.EncryptDES(jsonStr, DesCode.PassWord) : jsonStr);
             }
         }
 
@@ -60,7 +60,7 @@ public class IJsonData<T>: SingletonBase<T> where T : new()
         this.IsCreateAnotherData = true;
         this.jsonStr = json;
 
-        FileTools.CreateOrWriteFile(DataFileName, IsEncryptData ? DesCode.EncryptDES(jsonStr, DesCode.PassWord) : jsonStr);
+        FileTools.WriteFile(DataFileName, IsEncryptData ? DesCode.EncryptDES(jsonStr, DesCode.PassWord) : jsonStr);
 
     }
 
@@ -72,7 +72,7 @@ public class IJsonData<T>: SingletonBase<T> where T : new()
         if (!IsCreateAnotherData)
             return;
         
-        FileTools.CreateOrWriteFile(DataFileName, IsEncryptData ? DesCode.EncryptDES(jsonStr, DesCode.PassWord) : jsonStr);
+        FileTools.WriteFile(DataFileName, IsEncryptData ? DesCode.EncryptDES(jsonStr, DesCode.PassWord) : jsonStr);
     }
 
 	#endregion
